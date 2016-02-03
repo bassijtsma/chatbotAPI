@@ -1,8 +1,22 @@
-var express = require('express')
-var app = express()
+var async = require('async');
+var server = require('initializers/server');
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
 
-app.listen(3000)
+// async.series([tasks], callback) runs functions in tasks aray once the
+// previous task has been completed. If any of the functions fail, callback is
+// called with the error value and no other function runs.
+
+async.series([
+  function initializeDB(callback) {
+    require('./initializers/database')(callback);
+  },
+  function startServer(callback) {
+    server(callback);
+  }], function(err) {
+    if (err) {
+      console.log('initialization failed', err);
+    } else {
+      console.log('initialize succeeded');
+    }
+  }
+)
