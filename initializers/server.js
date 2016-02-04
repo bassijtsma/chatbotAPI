@@ -1,9 +1,3 @@
-// app.get('/', function (req, res) {
-//   res.send('Hello World')
-// })
-//
-// app.listen(3000)
-
 var PORTNR = 3000;
 
 var express = require('express');
