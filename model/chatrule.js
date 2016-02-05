@@ -1,5 +1,13 @@
-//
+require('mongoose')
 
-// var Chatrule = new Model()
+function getChatrules() {
 
-// module.exports = chatrule
+}
+
+function updateChatrule() {
+
+}
+
+function deleteChatrule() {
+
+}
