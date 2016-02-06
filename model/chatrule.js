@@ -29,6 +29,12 @@ function getChatrules(db, callback) {
   });
 }
 
+
+function insertChatrule(chatrule, db, callback) {
+  db.collection('chatrules').insertOne({});
+}
+
+
 function updateChatrule() {
 
 }
