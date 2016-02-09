@@ -32,13 +32,15 @@ function getChatrules(db, callback) {
 
 function insertChatrule(chatrule, db, callback) {
   db.collection('chatrules').insertOne({});
-}
-
-
-function updateChatrule() {
 
 }
 
-function deleteChatrule() {
+// TODO: add upsert : true to update statement!
+function updateChatrule(chatrule, db, callback) {
+  db.collection('chatrules').updateOne({})
 
+}
+
+function deleteChatrule(chatrule, db, callback) {
+  db.collcetion('chatrules').deleteOne({})
 }
