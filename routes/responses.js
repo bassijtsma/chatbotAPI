@@ -1,21 +1,22 @@
-// handles all /chatrules calls
+// handles all /responses calls
 
 module.exports = function(router) {
-  router.route('/:ruleId')
-  // handle HTTP calls for /chatrules/:ruleId
+  router.route('/:r_nr')
+  // handle HTTP calls for /responses/:r_nr
   .get(function(req, res, next) {
-    // return chatrule
+    // return response
   })
   .put(function(req, res, next) {
-    // update chatrule
+    // update response
   })
   .delete(function (req, res, next) {
-    // delete a chatrule
+    // delete a response
   });
 
   router.route('/')
-  // handle HTTP calls for /chatrules/
+  // handle HTTP calls for /responses/
   .get(function(req, res, next) {
+    
   })
 
 

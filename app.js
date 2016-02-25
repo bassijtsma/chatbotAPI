@@ -6,6 +6,8 @@ var server = require('initializers/server');
 // previous task has been completed. If any of the functions fail, callback is
 // called with the error value and no other function runs.
 
+
+
 async.series([
   function initializeDB(callback) {
     require('./initializers/database')(callback);
@@ -16,9 +18,6 @@ async.series([
     // the callback function
     if (err) {
       console.log('initialization failed', err);
-    } else {
-      // never called without err, test this?
-      console.log('initialize succeeded');
     }
   }
 )
