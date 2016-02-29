@@ -1,9 +1,7 @@
-var mongoose = require('mongoose');
 
 
-
-function getChatrules(db, callback) {
-  var chatrules = [];
+function getConversations(db, callback) {
+  var conversations = [];
   var cursor = db.collection('chatrule').find();
 
   cursor.each(function (err, doc) {
@@ -16,17 +14,17 @@ function getChatrules(db, callback) {
 }
 
 
-function insertChatrule(chatrule, db, callback) {
-  db.collection('chatrules').insertOne({});
+function insertConversation(conversation, db, callback) {
+  db.collection('conversations').insertOne({});
 
 }
 
 // TODO: add upsert : true to update statement!
-function updateChatrule(chatrule, db, callback) {
-  db.collection('chatrules').updateOne({})
+function updateConversation(conversation, db, callback) {
+  db.collection('conversations').updateOne({})
 
 }
 
-function deleteChatrule(chatrule, db, callback) {
-  db.collcetion('chatrules').deleteOne({})
+function deleteConversation(conversation, db, callback) {
+  db.collcetion('conversations').deleteOne({})
 }
