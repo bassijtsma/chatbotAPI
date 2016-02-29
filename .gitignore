@@ -70,3 +70,5 @@ credentials.py
 crds.txt
 
 deployment-config.json
+
+node_modules/*

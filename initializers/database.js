@@ -1,40 +1,36 @@
 // db initialization singleton
 var mongoClient = require('mongodb').MongoClient;
+var mongoServer = require('mongodb').Server
 var assert = require('assert');
 var config = require('./config');
 
 var mongodbPath = config.mongoPath;
-// mongoose.connect(mongodbPath); TODO verplaatsen naar initialize
+var mongodbPort = config.mongoPort;
+var dbName = config.dbName;
 
 var dbConnection;
 
-var initializeDB = (function(callback) {
+function createDBConnection() {
+  dbConnection = mongoClient.connect(mongodbPath, function(err, db){
+    console.log('hoi yep')
+    return dbConnection
+  })
+};
 
-  // TODO
-  function createDBConnection() {
-    var dbconnection = mongoClient.connect(mongodbPath, function(err, db){
-      if (err) {
-        console.log('unable to connect to db', err);
-      } else {
-        return dbconnection
-      }
-    })
+var getDBConnection = function(callback) {
+  console.log('initializing db')
+  if (!dbConnection) {
+    dbConnection = createDBConnection();
   }
+  return dbConnection;
+}
 
-  return {
-    getInstance : function () {
-      if (!dbConnection) {
-        dbConnection = createDBConnection();
-      }
-      return dbConnection;
-    }
-  }
+var closeDBConnection = function(callback) {
+  dbConnection.close();
+}
 
-  // callback in case of error
-  if (callback) {
-    console.log('calling callback from initializeDB')
-    return callback();
-  }
-})(callback);
 
-module.exports = initializeDB;
+module.exports = {
+  'getDBConnection' : getDBConnection,
+  'closeDBConnection' : closeDBConnection
+}

@@ -1,0 +1,25 @@
+{
+  "name": "chatbotapi",
+  "version": "1.0.0",
+  "description": "chatbot api for web interfacing",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bastronaut/chatbotAPI.git"
+  },
+  "author": "bassijtsma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bastronaut/chatbotAPI/issues"
+  },
+  "homepage": "https://github.com/bastronaut/chatbotAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.7",
+    "require-dir": "^0.3.0"
+  }
+}
