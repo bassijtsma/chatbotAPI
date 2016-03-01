@@ -10,8 +10,11 @@ var databaseInitializer = require('./initializers/database');
 
 async.series([
   function getDBConnection(callback) {
-  var dbConnection = databaseInitializer.getDBConnection();
-  callback(null, dbConnection)
+  var dbConnection = databaseInitializer.createDBConnection(function() {
+    console.log('in de callback')
+    callback(null, dbConnection);
+  });
+
   },
   function startServer(callback) {
     console.log('nu hier')

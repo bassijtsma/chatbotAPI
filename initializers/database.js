@@ -8,29 +8,32 @@ var mongodbPath = config.mongoPath;
 var mongodbPort = config.mongoPort;
 var dbName = config.dbName;
 
-var dbConnection;
+var database = function() {};
 
-function createDBConnection() {
-  dbConnection = mongoClient.connect(mongodbPath, function(err, db){
-    console.log('hoi yep')
-    return dbConnection
+database.createDBConnection = function(callback) {
+  database.db = mongoClient.connect(mongodbPath, function(err, db){
+    if (err) {
+      console.log('error creating db connection: ', err)
+    } else {
+      console.log('dbconnection created');
+      if (callback !== undefined) { callback(db)}
+    }
   })
-};
+}
 
-var getDBConnection = function(callback) {
-  console.log('initializing db')
-  if (!dbConnection) {
-    dbConnection = createDBConnection();
+database.getDBConnection = function() {
+  if (typeof(database.db) === 'undefined') {
+    console.log('getting db connection')
+    database.createDBConnection();
   }
-  return dbConnection;
+  return database.db;
 }
 
-var closeDBConnection = function(callback) {
-  dbConnection.close();
+database.closeDBConnection = function() {
+  if (database.db) {
+    database.db.close();
+  }
 }
 
 
-module.exports = {
-  'getDBConnection' : getDBConnection,
-  'closeDBConnection' : closeDBConnection
-}
+module.exports = database;
