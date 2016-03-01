@@ -11,22 +11,26 @@ var dbName = config.dbName;
 var database = function() {};
 
 database.createDBConnection = function(callback) {
-  database.db = mongoClient.connect(mongodbPath, function(err, db){
+  console.log('creating db!')
+  mongoClient.connect(mongodbPath, function(err, db){
     if (err) {
       console.log('error creating db connection: ', err)
     } else {
-      console.log('dbconnection created');
-      if (callback !== undefined) { callback(db)}
+      console.log('db connection created!')
+      database.db = db;
+      if (callback !== undefined) { callback(database)}
     }
   })
 }
 
-database.getDBConnection = function() {
+database.getDBConnection = function(callback) {
   if (typeof(database.db) === 'undefined') {
     console.log('getting db connection')
-    database.createDBConnection();
+    database.createDBConnection(callback);
+  } else {
+    console.log('db connection already exists, callback')
+    return callback(database);
   }
-  return database.db;
 }
 
 database.closeDBConnection = function() {

@@ -1,5 +1,6 @@
 var questionmodel = require('../model/question')
-var questions = new questionmodel();
+var question = new questionmodel();
+
 // handles all /questions calls
 
 module.exports = function(router) {
@@ -7,7 +8,8 @@ module.exports = function(router) {
   // handle HTTP calls for /questions/:q_nr
   .get(function(req, res, next) {
     // return question
-    questions.insertQuestion();
+    question.insertQuestion();
+    res.send({'hi' : 5})
   })
   .put(function(req, res, next) {
     // update question

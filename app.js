@@ -10,18 +10,22 @@ var databaseInitializer = require('./initializers/database');
 
 async.series([
   function getDBConnection(callback) {
-  var dbConnection = databaseInitializer.createDBConnection(function() {
-    console.log('in de callback')
-    callback(null, dbConnection);
-  });
+    databaseInitializer.getDBConnection(function(database){
+      callback(null, database);
+    })
+    // console.log('calling the createDBConnection')
+    // databaseInitializer.createDBConnection(function(dbConnection) {
+    // console.log('app.js in stap 1')
+    // callback(null, dbConnection);
+  // });
 
   },
   function startServer(callback) {
-    console.log('nu hier')
+    console.log('app.js in stap 2')
     server(callback);
   },
   function yolo(callback) {
-    console.log('nu weer hier')
+    console.log('app.js in stap 3')
   }], function(err) {
     // the callback function thats run after completion or on error
     if (err) {

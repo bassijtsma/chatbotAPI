@@ -1,4 +1,3 @@
-
 function getResponses(db, callback) {
   var chatrules = [];
   var cursor = db.collection('responses').find();

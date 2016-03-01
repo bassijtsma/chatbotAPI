@@ -6,7 +6,7 @@ var app;
 var routes = require('../routes/index.js')
 
 var startServer = function(callback) {
-
+  
   var app = express();
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json({type: '*/*'}));
