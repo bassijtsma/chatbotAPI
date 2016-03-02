@@ -15,15 +15,21 @@ var question = function() {
 
     cursor.each(function (err, doc) {
       if (doc != null) {
+        questions.append(doc);
         // put question in array
       } else {
         //  callback with return array
+        return questions;
       }
     });
   }
 
   this.insertQuestion = function(question, callback) {
     console.log('inserting record')
+    questionDocument = {};
+    questionDocument.text = '';
+    questionDocument.q_nr = '';
+    questionDocument.conv_id = '';
     // console.log(database);
     database.collection('testy').insertOne({'yo' : 5});
 
