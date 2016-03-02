@@ -10,6 +10,7 @@ var databaseInitializer = require('./initializers/database');
 
 async.series([
   function getDBConnection(callback) {
+    console.log('getDBConnection vanuit app.js')
     databaseInitializer.getDBConnection(function(database){
       callback(null, database);
     })

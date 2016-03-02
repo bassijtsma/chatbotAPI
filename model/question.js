@@ -1,13 +1,14 @@
-var databaseInitializer = require('../initializers/database')
+// var databaseInitializer = require('../initializers/database')
 
+var databaseInitializer;
 var question = function() {
 
-  if (!question.db) {
-    console.log('initializing from question model');
-    databaseInitializer.getDBConnection(function(database) {
-      question.db = database;
-    });
-  }
+  // if (!question.db) {
+  //   console.log('initializing from question model');
+  //   databaseInitializer.getDBConnection(function(database) {
+  //     question.db = database;
+  //   });
+  // }
 
   this.getQuestions = function(callback) {
     var questions = [];
@@ -19,7 +20,7 @@ var question = function() {
         // put question in array
       } else {
         //  callback with return array
-        return questions;
+        callback(questions);
       }
     });
   }

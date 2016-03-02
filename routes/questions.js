@@ -8,8 +8,6 @@ module.exports = function(router) {
   // handle HTTP calls for /questions/:q_nr
   .get(function(req, res, next) {
     // return question
-    question.insertQuestion();
-    res.send({'hi' : 5})
   })
   .put(function(req, res, next) {
     // update question
@@ -21,7 +19,19 @@ module.exports = function(router) {
   router.route('/')
   // handle HTTP calls for /questions/
   .get(function(req, res, next) {
-  })
+    // TODO: error handling
+    question.getQuestions(function(results) {
+      res.send({'results' : questions})
+    })
+
+  });
+  .post(function(req, res, next) {
+    console.log(req);
+    question.insertQuestion(function(insertResult) {
+      res.send({'results' : insertResult})
+    }
+
+  });
 
 
 

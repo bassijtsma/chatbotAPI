@@ -21,16 +21,20 @@ function insertResponse(response, db, callback) {
   responseDocument.r_nr = '';
   responseDocument.conv_id = '';
   responseDocument.response_to_q = '';
-  db.collection('responses').insertOne({responseDocument});
+  // db.collection('responses').insertOne({responseDocument});
+  console.log('insertOne responseDocument', responseDocument);
 
 }
 
 // TODO: add upsert : true to update statement!
 function updateResponse(response, db, callback) {
-  db.collection('responses').updateOne({})
+  db.collection('responses').updateOne({});
 
 }
 
 function deleteResponse(response, db, callback) {
-  db.collcetion('responses').deleteOne({})
+  // fetch documentt, use the objectID to remove it
+  deleteResponse = {};
+  db.collection('responses').findOne();
+  db.collcetion('responses').deleteOne({});
 }
