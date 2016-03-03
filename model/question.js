@@ -11,16 +11,15 @@ var question = function() {
   // }
 
   this.getQuestions = function(callback) {
+    // TODO: error handling
     var questions = [];
     var cursor = db.collection('questions').find();
 
     cursor.each(function (err, doc) {
       if (doc != null) {
         questions.append(doc);
-        // put question in array
       } else {
-        //  callback with return array
-        callback(questions);
+        callback(null, questions);
       }
     });
   }
@@ -33,6 +32,8 @@ var question = function() {
     questionDocument.conv_id = '';
     // console.log(database);
     database.collection('testy').insertOne({'yo' : 5});
+    // TODO how to do error handling?
+    callback();
 
   }
 

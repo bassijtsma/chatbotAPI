@@ -19,21 +19,18 @@ module.exports = function(router) {
   router.route('/')
   // handle HTTP calls for /questions/
   .get(function(req, res, next) {
-    // TODO: error handling
-    question.getQuestions(function(results) {
-      res.send({'results' : questions})
+    question.getQuestions(function(err, questions) {
+      if (err) {
+        res.send('results' : 'error')
+      } else {
+          res.send({'results' : questions})
+      }
     })
-
-  });
+  })
   .post(function(req, res, next) {
     console.log(req);
     question.insertQuestion(function(insertResult) {
       res.send({'results' : insertResult})
     }
-
-  });
-
-
-
-
+  })
 }
