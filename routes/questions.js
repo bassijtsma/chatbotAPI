@@ -6,14 +6,26 @@ var question = new questionmodel();
 module.exports = function(router) {
   router.route('/:q_nr')
   // handle HTTP calls for /questions/:q_nr
-  .get(function(req, res, next) {
-    // return question
-  })
   .put(function(req, res, next) {
     // update question
+    question.updateQuestion('reqparams', function(err, updateResult) {
+      if (err) {
+        res.send({'results' : error});
+      } else {
+        res.send('results' : updateResult);
+      }
+    })
   })
   .delete(function (req, res, next) {
-    // delete a question
+    // delete question
+    // TODO get request params
+    question.deleteQuestion('reqparams', function(err, deleteResult) {
+      if (err) {
+        res.send({'results' : 'error'});
+      } else {
+        res.send({'results' : deleteResult});
+      }
+    })
   });
 
   router.route('/')
@@ -21,7 +33,7 @@ module.exports = function(router) {
   .get(function(req, res, next) {
     question.getQuestions(function(err, questions) {
       if (err) {
-        res.send('results' : 'error')
+        res.send({'results' : 'error'})
       } else {
           res.send({'results' : questions})
       }

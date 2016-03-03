@@ -1,4 +1,4 @@
-function getResponses(db, callback) {
+function getResponses(callback) {
   var responses = [];
   var cursor = db.collection('responses').find();
 
@@ -8,14 +8,14 @@ function getResponses(db, callback) {
       responses.append(doc);
       // put response in array
     } else {
-      return responses;
+      callback(null, responses);
       //  callback with return array
     }
   });
 }
 
 
-function insertResponse(response, db, callback) {
+function insertResponse(response, callback) {
   responseDocument = {};
   responseDocument.text = '';
   responseDocument.r_nr = '';
@@ -23,7 +23,7 @@ function insertResponse(response, db, callback) {
   responseDocument.response_to_q = '';
   // db.collection('responses').insertOne({responseDocument});
   console.log('insertOne responseDocument', responseDocument);
-
+  callback(null, 'result ok');
 }
 
 // TODO: add upsert : true to update statement!

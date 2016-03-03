@@ -38,12 +38,12 @@ var question = function() {
   }
 
   // TODO: add upsert : true to update statement!
-  this.updateQuestion = function(question, db, callback) {
+  this.updateQuestion = function(question, callback) {
     db.collection('questions').updateOne({})
 
   }
 
-  this.deleteQuestion = function(question, db, callback) {
+  this.deleteQuestion = function(question, callback) {
     db.collcetion('questions').deleteOne({})
   }
 }
