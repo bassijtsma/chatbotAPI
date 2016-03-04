@@ -27,12 +27,12 @@ function insertResponse(response, callback) {
 }
 
 // TODO: add upsert : true to update statement!
-function updateResponse(response, db, callback) {
+function updateResponse(response, callback) {
   db.collection('responses').updateOne({});
 
 }
 
-function deleteResponse(response, db, callback) {
+function deleteResponse(response, callback) {
   // fetch documentt, use the objectID to remove it
   deleteResponse = {};
   db.collection('responses').findOne();

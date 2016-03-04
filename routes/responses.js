@@ -1,3 +1,6 @@
+var responsenmodel = require('../model/response')
+var response = new responsenmodel();
+
 // handles all /responses calls
 
 module.exports = function(router) {
@@ -14,7 +17,6 @@ module.exports = function(router) {
         res.send('results' : updateResult);
       }
     })
-    // update response
   })
   .delete(function (req, res, next) {
     // delete a response

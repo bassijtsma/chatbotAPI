@@ -19,7 +19,6 @@ module.exports = function(router) {
   .delete(function (req, res, next) {
     // delete question
     // TODO get request params
-    question.deleteQuestion('reqparams', function(err, deleteResult) {
       if (err) {
         res.send({'results' : 'error'});
       } else {
@@ -35,14 +34,18 @@ module.exports = function(router) {
       if (err) {
         res.send({'results' : 'error'})
       } else {
-          res.send({'results' : questions})
+        res.send({'results' : questions})
       }
     })
   })
   .post(function(req, res, next) {
     console.log(req);
-    question.insertQuestion(function(insertResult) {
-      res.send({'results' : insertResult})
+    question.insertQuestion(function(err, insertResult) {
+      if (err) {
+        res.send({'results' : 'error'})
+      } else {
+        res.send({'results' : insertResult});
+      }
     }
   })
 }

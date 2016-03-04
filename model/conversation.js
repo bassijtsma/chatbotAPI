@@ -1,6 +1,6 @@
 
 
-function getConversations(db, callback) {
+function getConversations(callback) {
   var conversations = [];
   var cursor = db.collection('chatrule').find();
 
@@ -14,17 +14,17 @@ function getConversations(db, callback) {
 }
 
 
-function insertConversation(conversation, db, callback) {
+function insertConversation(conversation, callback) {
   db.collection('conversations').insertOne({});
 
 }
 
 // TODO: add upsert : true to update statement!
-function updateConversation(conversation, db, callback) {
+function updateConversation(conversation, callback) {
   db.collection('conversations').updateOne({})
 
 }
 
-function deleteConversation(conversation, db, callback) {
+function deleteConversation(conversation, callback) {
   db.collcetion('conversations').deleteOne({})
 }
