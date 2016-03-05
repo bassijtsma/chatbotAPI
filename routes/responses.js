@@ -1,7 +1,9 @@
-var responsenmodel = require('../model/response')
-var response = new responsenmodel();
-
 // handles all /responses calls
+
+var responsenmodel = require('../model/response')
+// var response = new responsenmodel();
+
+
 
 module.exports = function(router) {
   router.route('/:r_nr')
@@ -42,6 +44,7 @@ module.exports = function(router) {
   })
   .post(function(req, res, next) {
     //TODO get reqparams to post
+    console.log(req.body);
     response.insertResponse('reqparams', function(err, insertResult) {
       res.send({'results' : insertResult});
     })

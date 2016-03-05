@@ -1,9 +1,18 @@
-var databaseInitializer = require('../initializers/database')
-// var databaseInitializer;
+var database = require('../initializers/database')
+// var database = new databaseInitializer();
+
 
 var response = function() {
 
+  var db = database.getDBConnection();
+  
   function getResponses(callback) {
+    // if (typeof(db) === 'undefined') {
+    //   db = database.getDBConnection();
+    // }
+
+
+
     var responses = [];
     var cursor = db.collection('responses').find();
 
@@ -48,7 +57,7 @@ var response = function() {
     // fetch documentt, use the objectID to remove it
     deleteResponse = {};
     db.collection('responses').findOne();
-    db.collcetion('responses').deleteOne({});
+    db.collection('responses').deleteOne({});
   }
 }
 module.exports = response;

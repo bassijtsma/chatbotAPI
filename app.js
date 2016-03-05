@@ -1,6 +1,7 @@
 var async = require('async');
 var server = require('./initializers/server');
-var databaseInitializer = require('./initializers/database');
+var database = require('./initializers/database');
+// var database = new databaseInitializer();
 
 // async.series([tasks], callback) runs functions in tasks array once the
 // previous task has been completed. If any of the functions fail, callback is
@@ -11,7 +12,7 @@ var databaseInitializer = require('./initializers/database');
 async.series([
   function getDBConnection(callback) {
     console.log('getDBConnection vanuit app.js')
-    databaseInitializer.getDBConnection(function(database){
+    database.getDBConnection(function(database){
       callback(null, database);
     })
     // console.log('calling the createDBConnection')

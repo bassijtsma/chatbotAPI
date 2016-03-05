@@ -1,8 +1,13 @@
-var databaseInitializer = require('../initializers/database')
+var database = require('../initializers/database')
+// var database = new databaseInitializer();
+
 
 var conversation = function() {
 
-  function getConversations(callback) {
+  var db = database.getDBConnection();
+  
+  this.getConversations = function(callback) {
+
     var conversations = [];
     var cursor = db.collection('chatrule').find();
 
@@ -15,8 +20,7 @@ var conversation = function() {
     });
   }
 
-
-  function insertConversation(conversation, callback) {
+  this.insertConversation = function(conversation, callback) {
     db.collection('conversations').insertOne({}, function(err, result) {
       if (err) {
         var errorstring = "error: "+ err;
@@ -25,16 +29,15 @@ var conversation = function() {
         callback(null, result);
       }
     });
-
   }
 
   // TODO: add upsert : true to update statement!
-  function updateConversation(conversation, callback) {
+  this.updateConversation = function(conversation, callback) {
     db.collection('conversations').updateOne({})
 
   }
 
-  function deleteConversation(conversation, callback) {
+  this.deleteConversation = function(conversation, callback) {
     db.collcetion('conversations').deleteOne({})
   }
 }

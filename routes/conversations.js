@@ -1,10 +1,11 @@
-var conversationmodel = require('../model/conversation')
-var conversation = new conversationmodel();
-
 // handles all /conversations calls
 
+var conversationmodel = require('../model/conversation')
+// var conversation = new conversationmodel();
+
+
 module.exports = function(router) {
-  router.route('/:q_nr')
+  router.route('/:conv_nr')
   // handle HTTP calls for /conversations/:q_nr
   .get(function(req, res, next) {
     // return conversation
@@ -29,6 +30,7 @@ module.exports = function(router) {
   })
   .post(function(req, res, next) {
     console.log(req);
+    console.log(req.body);
     conversation.insertConversation(function(insertResult) {
       res.send({'results' : insertResult})
     }

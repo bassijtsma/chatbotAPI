@@ -1,7 +1,10 @@
-var questionmodel = require('../model/question')
-var question = new questionmodel();
-
 // handles all /questions calls
+console.log("RUNNING FIRST REALLY")
+var questionmodel = require('../model/question')
+console.log("RUNNIN FIRST")
+// var question = new questionmodel();
+
+
 
 module.exports = function(router) {
   router.route('/:q_nr')
@@ -38,7 +41,7 @@ module.exports = function(router) {
     })
   })
   .post(function(req, res, next) {
-    console.log(req);
+    console.log(req.body);
     question.insertQuestion(function(err, insertResult) {
       if (err) {
         res.send({'results' : 'error'})
