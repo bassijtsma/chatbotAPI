@@ -31,10 +31,15 @@ var question = function() {
     questionDocument.q_nr = '';
     questionDocument.conv_id = '';
     // console.log(database);
-    database.collection('testy').insertOne({'yo' : 5});
-    // TODO how to do error handling?
-    callback();
-
+    database.collection('testy').insertOne({'yo' : 5}, function(err, result) {
+      if (err) {
+        var errormsg = "error: "+ err;
+        callback(errormsg, null);
+      } else {
+        // TODO : verify what result looks like and what is being returned
+        callback(null, result);
+      }
+    });
   }
 
   // TODO: add upsert : true to update statement!

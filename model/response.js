@@ -21,9 +21,16 @@ function insertResponse(response, callback) {
   responseDocument.r_nr = '';
   responseDocument.conv_id = '';
   responseDocument.response_to_q = '';
-  // db.collection('responses').insertOne({responseDocument});
+  db.collection('responses').insertOne({responseDocument}, function(err, result){
+    if (err) {
+      var errormsg = "error: "+ err;
+      callback(errormsg, null);
+    } else {
+      // TODO : verify what result looks like and what is being returned
+      callback(null, result);
+    }
+  });
   console.log('insertOne responseDocument', responseDocument);
-  callback(null, 'result ok');
 }
 
 // TODO: add upsert : true to update statement!

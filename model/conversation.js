@@ -15,7 +15,14 @@ function getConversations(callback) {
 
 
 function insertConversation(conversation, callback) {
-  db.collection('conversations').insertOne({});
+  db.collection('conversations').insertOne({}, function(err, result) {
+    if (err) {
+      var errorstring = "error: "+ err;
+      callback(errorstring, null);
+    } else {
+      callback(null, result);
+    }
+  });
 
 }
 
