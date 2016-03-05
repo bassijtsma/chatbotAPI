@@ -14,7 +14,7 @@ module.exports = function(router) {
       if (err) {
         res.send({'results' : 'error'});
       } else {
-        res.send('results' : updateResult);
+        res.send({'results' : updateResult});
       }
     })
   })
@@ -26,7 +26,7 @@ module.exports = function(router) {
       } else {
         res.send({'results' : error});
       }
-    }))
+    })
   });
 
   router.route('/')
@@ -43,7 +43,7 @@ module.exports = function(router) {
   .post(function(req, res, next) {
     //TODO get reqparams to post
     response.insertResponse('reqparams', function(err, insertResult) {
-      res.send({'results' : insertResult})
-    }
+      res.send({'results' : insertResult});
+    })
   })
 }

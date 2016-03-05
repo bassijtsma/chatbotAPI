@@ -1,4 +1,4 @@
-var conversationmodel = require('../model/conversations')
+var conversationmodel = require('../model/conversation')
 var conversation = new conversationmodel();
 
 // handles all /conversations calls
@@ -21,7 +21,7 @@ module.exports = function(router) {
   .get(function(req, res, next) {
     conversation.getcCnversations(function(err, conversations) {
       if (err) {
-        res.send('results' : 'error')
+        res.send({'results' : 'error'})
       } else {
           res.send({'results' : conversations})
       }
@@ -32,5 +32,5 @@ module.exports = function(router) {
     conversation.insertConversation(function(insertResult) {
       res.send({'results' : insertResult})
     }
-  })
-}
+  )}
+)}

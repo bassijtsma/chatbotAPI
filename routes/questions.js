@@ -12,19 +12,18 @@ module.exports = function(router) {
       if (err) {
         res.send({'results' : error});
       } else {
-        res.send('results' : updateResult);
+        res.send({'results' : updateResult});
       }
     })
   })
   .delete(function (req, res, next) {
     // delete question
     // TODO get request params
-      if (err) {
-        res.send({'results' : 'error'});
-      } else {
-        res.send({'results' : deleteResult});
-      }
-    })
+    if (err) {
+      res.send({'results' : 'error'});
+    } else {
+      res.send({'results' : deleteResult});
+    }
   });
 
   router.route('/')
@@ -46,6 +45,6 @@ module.exports = function(router) {
       } else {
         res.send({'results' : insertResult});
       }
-    }
+    })
   })
 }
