@@ -1,4 +1,4 @@
-var database = require('../initializers/database')
+var database = require('../initializers/database');
 
 var response = function() {};
 
@@ -7,7 +7,7 @@ response.getResponses = function(callback) {
   var cursor = database.db.collection('responses').find();
 
   cursor.each(function (err, doc) {
-    if (doc != null) {
+    if (doc !== null) {
       // TODO: verify format of documents. probably filter out object ID
       responseList.push(doc);
       // put response in array
@@ -16,7 +16,7 @@ response.getResponses = function(callback) {
       //  callback with return array
     }
   });
-}
+};
 
 response.insertResponse = function(response, callback) {
   responseDocument = {};
@@ -34,19 +34,19 @@ response.insertResponse = function(response, callback) {
     }
   });
   console.log('insertOne responseDocument', responseDocument);
-}
+};
 
 // TODO: add upsert : true to update statement!
 response.updateResponse = function(response, callback) {
   database.db.collection('responses').updateOne({});
 
-}
+};
 
 response.deleteResponse = function(response, callback) {
   // fetch documentt, use the objectID to remove it
   deleteResponse = {};
   database.db.collection('responses').findOne();
   database.db.collection('responses').deleteOne({});
-}
+};
 
 module.exports = response;

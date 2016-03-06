@@ -8,17 +8,17 @@ var database = require('./initializers/database');
 
 async.series([
   function startDBConnection(callback) {
-    console.log('setting up DB connection in app.js...')
+    console.log('setting up DB connection in app.js...');
     database.createDBConnection(function(database){
       callback(null, database);
-    })
+    });
   },
   function startServer(callback) {
-    console.log('app.js in stap 2')
+    console.log('app.js in stap 2');
     server(callback);
   },
   function yolo(callback) {
-    console.log('app.js in stap 3')
+    console.log('app.js in stap 3');
   }], function(err) {
     // the callback function thats run after completion or on error
     if (err) {
@@ -27,4 +27,4 @@ async.series([
       console.log('finish setup db and server!');
     }
   }
-)
+);

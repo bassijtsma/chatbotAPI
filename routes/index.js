@@ -8,8 +8,8 @@ module.exports = function(app) {
   Object.keys(routes).forEach(function(routeName) {
     var router = express.Router();
     // initialize all routes with router arg to add functionality to the router.
-    require('./' + routeName)(router)
+    require('./' + routeName)(router);
     // Add router to the corresponding  route
-    app.use('/' + routeName, router)
-  })
-}
+    app.use('/' + routeName, router);
+  });
+};
