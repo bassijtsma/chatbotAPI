@@ -1,8 +1,5 @@
 // handles all /conversations calls
-
 var conversationmodel = require('../model/conversation')
-// var conversation = new conversationmodel();
-
 
 module.exports = function(router) {
   router.route('/:conv_nr')

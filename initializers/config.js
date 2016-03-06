@@ -1,6 +1,6 @@
 module.exports = {
-  'mongoUrl' : 'mongodb://localhost:27017/test',
-  'mongoPath' : 'mongodb://localhost:27017/prod',
+  'mongoUrl' : 'mongodb://127.0.0.1:27017/test',
+  'mongoPath' : 'mongodb://127.0.0.1:27017/prod',
   'mongoLH' : 'localhost',
   'mongoPort' : 27017,
   'port' : 3000,

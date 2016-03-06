@@ -1,12 +1,13 @@
 // handles all /questions calls
-console.log("RUNNING FIRST REALLY")
-var questionmodel = require('../model/question')
-console.log("RUNNIN FIRST")
-// var question = new questionmodel();
+var question = require('../model/question')
+// console.log(questionmodel);
 
 
 
 module.exports = function(router) {
+  // console.log(questionmodel)
+  // var question = new questionmodel;
+
   router.route('/:q_nr')
   // handle HTTP calls for /questions/:q_nr
   .put(function(req, res, next) {

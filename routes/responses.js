@@ -1,9 +1,5 @@
 // handles all /responses calls
-
 var responsenmodel = require('../model/response')
-// var response = new responsenmodel();
-
-
 
 module.exports = function(router) {
   router.route('/:r_nr')
