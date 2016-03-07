@@ -17,56 +17,74 @@ question.getQuestions = function(callback) {
     });
   };
 
+
 question.insertQuestion = function(requestBody, callback) {
-  console.log('inserting record');
   var questionObject;
+
   if (isValidRequest(requestBody)) {
       questionObject = buildQuestionObject(requestBody);
-      // insert into db
       database.db.collection('questions').insertOne(questionObject, function (err, result) {
         if (err) {
-          console.log('error inserting doc: '+ err);
-          callback('error inserting doc', null);
+          callback(err, null);
         } else {
-          callback(null, 'success');
+          callback(null, 'Question inserted successfully');
         }
       });
-      // callback(null, 'gelukt');
   } else {
     callback('Not a validRequest', null);
   }
-
-  /*
-  database.db.collection('testy').insertOne({'yo' : 5}, function(err, result) {
-    if (err) {
-      var errormsg = "error: "+ err;
-      callback(errormsg, null);
-    } else {
-      // TODO : verify what result looks like and what is being returned
-      callback(null, result);
-    }
-  }); */
-
 };
 
-// TODO: add upsert : true to update statement!
+
 question.updateQuestion = function(requestBody, callback) {
-  database.db.collection('questions').updateOne({});
+  var questionObject;
 
+  if (!isValidRequest(requestBody), callback) {
+    questionObject = buildQuestionObject(requestBody);
+    database.db.collection('questions').updateOne({
+      "q_nr" : questionObject.q_nr,
+      "conv_id" : questionObject.conv_id
+    }, {
+      $set : { "text" : questionObject.text}
+    }, function(err, results) {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, 'Question updated successfully');
+      }
+    });
+  }
 };
+
 
 question.deleteQuestion = function(requestBody, callback) {
-  database.db.collcetion('questions').deleteOne({});
+  var questionObject;
+
+  if (!isValidRequest(requestBody), callback) {
+    questionObject = buildQuestionObject(requestBody);
+    database.db.collection('questions').deleteOne({
+      "q_nr" : questionObject.q_nr,
+      "conv_id" : questionObject.conv_id,
+      "text" : questionObject.text
+    }, function(err, results) {
+      if (err) {
+        callback(err, null);
+      } else {
+        if (results.result.n > 0) {
+          callback(null, 'Question deleted successfully');
+        } else {
+          callback('No document was found to delete');
+        }
+      }
+    });
+  }
 };
-
-
-module.exports = question;
 
 
 function isValidRequest(requestBody) {
   console.log('isvalidrequest...', requestBody);
-  if (!isValidR_nr(requestBody)) {
-    console.log('r_nr not valid'); return false;}
+  if (!isValidQ_nr(requestBody)) {
+    console.log('q_nr not valid'); return false;}
   else if (!isValidText(requestBody)) {
     console.log('text not valid'); return false;}
   else if (!isValidConv_id(requestBody)) {
@@ -74,8 +92,9 @@ function isValidRequest(requestBody) {
   else { console.log('valid request!'); return true;}
 }
 
+
 function buildQuestionObject(requestBody) {
-  console.log('building question object...');
+  console.log('requestbody: ', requestBody);
   questionDocument = {};
   questionDocument.text = validator.escape(requestBody.text);
   questionDocument.q_nr = parseInt(validator.escape(requestBody.q_nr));
@@ -83,13 +102,12 @@ function buildQuestionObject(requestBody) {
   return questionDocument;
 }
 
-function isValidR_nr(requestBody) {
+function isValidQ_nr(requestBody) {
   try {
-    var escapedR_nr = validator.escape(requestBody.r_nr);
-    console.log(escapedR_nr);
-    return validator.isInt(escapedR_nr, { min: 0, max: 99999}); // arbitrary limit
+    var escapedQ_nr = validator.escape(requestBody.q_nr);
+    return validator.isInt(escapedQ_nr, { min: 0, max: 99999}); // arbitrary limit
   } catch (err) {
-    console.log('error validating r_nr:', requestBody.r_nr);
+    console.log('error validating q_nr:', requestBody.q_nr);
     return false;
   }
 }
@@ -106,10 +124,12 @@ function isValidText(requestBody) {
 
 function isValidConv_id(requestBody) {
   try {
-    var escapedR_nr = validator.escape(requestBody.conv_id);
-    return validator.isInt(escapedR_nr, { min: 0, max: 99999}); // arbitrary limit
+    var escapedConv_id = validator.escape(requestBody.conv_id);
+    return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
   } catch (err) {
     console.log('error validating conv_id:', requestBody.conv_id);
     return false;
   }
 }
+
+module.exports = question;

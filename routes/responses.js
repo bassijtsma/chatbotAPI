@@ -2,15 +2,12 @@
 var response = require('../model/response');
 
 module.exports = function(router) {
-  router.route('/:r_nr')
+  router.route('/:conv_id/:r_nr')
   // handle HTTP calls for /responses/:r_nr
-  .get(function(req, res, next) {
-    // return response
-  })
   .put(function(req, res, next) {
-    response.updateResponse('reqparams', function(err, updateResult) {
+    response.updateResponse(req.body, function(err, updateResult) {
       if (err) {
-        res.send({'results' : 'error'});
+        res.send({'results' : 'error', error : err});
       } else {
         res.send({'results' : updateResult});
       }
@@ -18,11 +15,11 @@ module.exports = function(router) {
   })
   .delete(function (req, res, next) {
     // delete a response
-    response.deleteResponse('reqparams', function(err, deleteResult) {
+    response.deleteResponse(req.body, function(err, deleteResult) {
       if (err) {
-        res.send({'results' : 'error'});
+        res.send({'results' : 'error', error : err});
       } else {
-        res.send({'results' : error});
+        res.send({'results' : deleteResult});
       }
     });
   });
@@ -32,17 +29,19 @@ module.exports = function(router) {
   .get(function(req, res, next) {
     response.getResponses(function(err, questions) {
       if (err) {
-        res.send({'results' : 'error'});
+        res.send({'results' : 'error', error : err});
       } else {
           res.send({'results' : questions});
       }
     });
   })
   .post(function(req, res, next) {
-    //TODO get reqparams to post
-    console.log(req.body);
     response.insertResponse('reqparams', function(err, insertResult) {
-      res.send({'results' : insertResult});
+      if (err) {
+        res.send({'results' : 'error', 'error' : err});
+      } else {
+        res.send({'results' : insertResult});
+      }
     });
   });
 };
