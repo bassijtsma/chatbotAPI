@@ -56,13 +56,14 @@ module.exports = question;
 
 
 function isValidRequest(requestBody) {
-  console.log('isvalidrequest...', requestBody)
-  try { validateR_nr(requestBody.r_nr); } catch (err) {
-    console.log(err); return false; }
-  try { validateText(requestBody.text); } catch (err) {
-    console.log(err); return false; }
-  try { validateText(requestBody.conv_id); } catch (err) {
-    console.log(err); return false; }
+  console.log('isvalidrequest...', requestBody);
+  if (!isValidR_nr(requestBody)) {
+    console.log('r_nr not valid'); return false;}
+  else if (!isValidText(requestBody)) {
+    console.log('text not valid'); return false;}
+  else if (!isValidConv_id(requestBody)) {
+    console.log('conv_id not valid'); return false;}
+  else { console.log('valid request!'); return true;}
 }
 
 function buildQuestionObject(requestBody) {
@@ -75,29 +76,35 @@ function buildQuestionObject(requestBody) {
 
 
 
-function validateR_nr(r_nr) {
-  var escapedR_nr = validator.escape(r_nr);
-  return validator.isInt(escapedR_nr, { min: 0, max: undefined});
+function isValidR_nr(requestBody) {
+  try {
+    var escapedR_nr = validator.escape(requestBody.r_nr);
+    console.log(escapedR_nr);
+    return validator.isInt(escapedR_nr, { min: 0, max: 99});
+  } catch (err) {
+    console.log('error validating r_nr:', requestBody.r_nr);
+    return false;
+  }
 }
 
-function validateText(text) {
-  var escapedText = validator.escape(text);
-  return validator.isLength(text, { min: 1, max : undefined});
+function isValidText(requestBody) {
+  try {
+    var escapedText = validator.escape(requestBody.text);
+    return validator.isLength(escapedText, { min: 1, max : undefined});
+  } catch (err) {
+    console.log('error validating text:', requestBody.text);
+    return false;
+  }
+
 }
 
-function validateConv_id(conv_id) {
-  var escapedR_nr = validator.escape(conv_id);
-  return validator.isInt(conv_id, { min: 0, max: undefined});
-}
+function isValidConv_id(requestBody) {
+  try {
+    var escapedR_nr = validator.escape(requestBody.conv_id);
+    return validator.isInt(escapedR_nr, { min: 0, max: 99});
+  } catch (err) {
+    console.log('error validating conv_id:', requestBody.conv_id);
+    return false;
+  }
 
-function isValidQuestionRequest(requestBody) {
-  console.log('\nstart validator:');
-  console.log(validator.escape(requestBody.r_nr));
-  console.log(validator.escape(requestBody.text));
-  console.log(validator.escape(requestBody.conv_id));
-  console.log(validator.escape('<""\nsS'));
-  console.log(validator.isInt('05'));
-  console.log(validator.isInt('-5'));
-  console.log(validator.isInt(yo));
-  validator.isInt('05');
 }
