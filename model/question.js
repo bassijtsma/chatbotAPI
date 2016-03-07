@@ -23,6 +23,14 @@ question.insertQuestion = function(requestBody, callback) {
   if (isValidRequest(requestBody)) {
       questionObject = buildQuestionObject(requestBody);
       // insert into db
+      database.db.collection('questions').insertOne(questionObject, function (err, result) {
+        if (err) {
+          console.log('error inserting doc: '+ err);
+          callback('error inserting doc', null);
+        } else {
+          callback(null, 'success');
+        }
+      });
       // callback(null, 'gelukt');
   } else {
     callback('Not a validRequest', null);
@@ -68,19 +76,18 @@ function isValidRequest(requestBody) {
 
 function buildQuestionObject(requestBody) {
   console.log('building question object...');
-  // questionDocument = {};
-  // questionDocument.text = '';
-  // questionDocument.q_nr = '';
-  // questionDocument.conv_id = '';
+  questionDocument = {};
+  questionDocument.text = validator.escape(requestBody.text);
+  questionDocument.q_nr = parseInt(validator.escape(requestBody.q_nr));
+  questionDocument.conv_id = parseInt(validator.escape(requestBody.conv_id));
+  return questionDocument;
 }
-
-
 
 function isValidR_nr(requestBody) {
   try {
     var escapedR_nr = validator.escape(requestBody.r_nr);
     console.log(escapedR_nr);
-    return validator.isInt(escapedR_nr, { min: 0, max: 99});
+    return validator.isInt(escapedR_nr, { min: 0, max: 99999}); // arbitrary limit
   } catch (err) {
     console.log('error validating r_nr:', requestBody.r_nr);
     return false;
@@ -95,16 +102,14 @@ function isValidText(requestBody) {
     console.log('error validating text:', requestBody.text);
     return false;
   }
-
 }
 
 function isValidConv_id(requestBody) {
   try {
     var escapedR_nr = validator.escape(requestBody.conv_id);
-    return validator.isInt(escapedR_nr, { min: 0, max: 99});
+    return validator.isInt(escapedR_nr, { min: 0, max: 99999}); // arbitrary limit
   } catch (err) {
     console.log('error validating conv_id:', requestBody.conv_id);
     return false;
   }
-
 }
