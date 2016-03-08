@@ -7,7 +7,7 @@ module.exports = function(router) {
   .put(function(req, res, next) {
     response.updateResponse(req.body, function(err, updateResult) {
       if (err) {
-        res.send({'results' : 'error', error : err});
+        res.send({'results' : 'error', 'error' : err});
       } else {
         res.send({'results' : updateResult});
       }
@@ -17,7 +17,7 @@ module.exports = function(router) {
     // delete a response
     response.deleteResponse(req.body, function(err, deleteResult) {
       if (err) {
-        res.send({'results' : 'error', error : err});
+        res.send({'results' : 'error', 'error' : err});
       } else {
         res.send({'results' : deleteResult});
       }
@@ -29,14 +29,14 @@ module.exports = function(router) {
   .get(function(req, res, next) {
     response.getResponses(function(err, questions) {
       if (err) {
-        res.send({'results' : 'error', error : err});
+        res.send({'results' : 'error', 'error' : err});
       } else {
           res.send({'results' : questions});
       }
     });
   })
   .post(function(req, res, next) {
-    response.insertResponse('reqparams', function(err, insertResult) {
+    response.insertResponse(req.body, function(err, insertResult) {
       if (err) {
         res.send({'results' : 'error', 'error' : err});
       } else {

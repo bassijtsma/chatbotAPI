@@ -17,7 +17,7 @@ response.getResponses = function(callback) {
   });
 };
 
-response.insertResponse = function(response, callback) {
+response.insertResponse = function(requestBody, callback) {
   var responseObject;
 
   if (isValidRequest(requestBody)) {
@@ -35,10 +35,10 @@ response.insertResponse = function(response, callback) {
 };
 
 
-response.updateResponse = function(response, callback) {
+response.updateResponse = function(requestBody, callback) {
   var responseObject;
 
-  if (!isValidRequest(requestBody), callback) {
+  if (isValidRequest(requestBody)) {
     responseObject = buildResponseObject(requestBody);
     database.db.collection('responses').updateOne({
       "r_nr" : responseObject.r_nr,
@@ -53,15 +53,15 @@ response.updateResponse = function(response, callback) {
         callback(null, 'Response updated successfully');
       }
     });
-  }
+  } else {
+      callback('Not a validRequest', null);
+    }
 };
 
-};
-
-response.deleteResponse = function(response, callback) {
+response.deleteResponse = function(requestBody, callback) {
   var responseObject;
 
-  if (!isValidRequest(requestBody), callback) {
+  if (isValidRequest(requestBody)) {
     responseObject = buildResponseObject(requestBody);
     database.db.collection('responses').deleteOne({
       "r_nr" : questionObject.q_nr,
@@ -79,8 +79,10 @@ response.deleteResponse = function(response, callback) {
         }
       }
     });
-  }
-  };
+    } else {
+      callback('Not a validRequest', null);
+    }
+};
 
 module.exports = response;
 

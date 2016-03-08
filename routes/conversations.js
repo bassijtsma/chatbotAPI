@@ -3,34 +3,44 @@ var conversation = require('../model/conversation');
 
 module.exports = function(router) {
   router.route('/:conv_nr')
-  // handle HTTP calls for /conversations/:q_nr
-  .get(function(req, res, next) {
-    // return conversation
-  })
+  // handle HTTP calls for /conversations/:conv_nr
   .put(function(req, res, next) {
-    // update conversation
+    conversation.updateConversation(req.body, function(err, updateResult) {
+      if (err) {
+        res.send({'results' : 'error', 'error' : err});
+      } else {
+        res.send({'results' : updateResult});
+      }
+    });
   })
   .delete(function (req, res, next) {
-    // delete a conversation
+    conversation.deleteConversation(req.body, function(err, deleteResult) {
+      if (err) {
+        res.send({'results' : 'error', 'error' : err});
+      } else {
+        res.send({'results' : deleteResult});
+      }
+    });
   });
 
   router.route('/')
   // handle HTTP calls for /conversations/
   .get(function(req, res, next) {
-    console.log('getting zeh conversations');
     conversation.getConversations(function(err, conversations) {
       if (err) {
-        res.send({'results' : 'error'});
+        res.send({'results' : 'error', 'error' : err});
       } else {
         res.send({'results' : conversations});
       }
     });
   })
   .post(function(req, res, next) {
-    console.log(req);
-    console.log(req.body);
-    conversation.insertConversation(function(insertResult) {
-      res.send({'results' : insertResult});
+    conversation.insertConversation(function(err, insertResult) {
+      if (err) {
+        res.send({'results' : 'error', 'error' : err});
+      } else {
+        res.send({'results' : insertResult});
+      }
     });
   });
 };

@@ -39,7 +39,7 @@ question.insertQuestion = function(requestBody, callback) {
 question.updateQuestion = function(requestBody, callback) {
   var questionObject;
 
-  if (!isValidRequest(requestBody), callback) {
+  if (isValidRequest(requestBody)) {
     questionObject = buildQuestionObject(requestBody);
     database.db.collection('questions').updateOne({
       "q_nr" : questionObject.q_nr,
@@ -53,14 +53,16 @@ question.updateQuestion = function(requestBody, callback) {
         callback(null, 'Question updated successfully');
       }
     });
-  }
+  } else {
+      callback('Not a validRequest', null);
+    }
 };
 
 
 question.deleteQuestion = function(requestBody, callback) {
   var questionObject;
 
-  if (!isValidRequest(requestBody), callback) {
+  if (isValidRequest(requestBody)) {
     questionObject = buildQuestionObject(requestBody);
     database.db.collection('questions').deleteOne({
       "q_nr" : questionObject.q_nr,
@@ -77,12 +79,15 @@ question.deleteQuestion = function(requestBody, callback) {
         }
       }
     });
-  }
+  } else {
+      callback('Not a validRequest', null);
+    }
 };
 
 
 function isValidRequest(requestBody) {
   console.log('isvalidrequest...', requestBody);
+
   if (!isValidQ_nr(requestBody)) {
     console.log('q_nr not valid'); return false;}
   else if (!isValidText(requestBody)) {
