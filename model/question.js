@@ -5,17 +5,17 @@ var xssFilters = require('xss-filters');
 var question = function() {};
 
 question.getQuestions = function(callback) {
-    var questionList = [];
-    var cursor = database.db.collection('questions').find();
+  var questionList = [];
+  var cursor = database.db.collection('questions').find();
 
-    cursor.each(function (err, doc) {
-      if (doc !== null) {
-        questionList.push(doc);
-      } else {
-        callback(null, questionList);
-      }
-    });
-  };
+  cursor.each(function (err, doc) {
+    if (doc !== null) {
+      questionList.push(doc);
+    } else {
+      callback(null, questionList);
+    }
+  });
+};
 
 
 question.insertQuestion = function(requestBody, callback) {
@@ -82,6 +82,20 @@ question.deleteQuestion = function(requestBody, callback) {
   } else {
       callback('Not a validRequest', null);
     }
+};
+
+question.createDeleteQuestionsForConv_idPromise = function(conv_id) {
+  var deleteQuestionsForConv_id = new Promise(function(resolve, reject){
+    database.db.collection('questions').deleteMany(
+      {"conv_id" : conv_id}, function (err, deleteResults) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(deleteResults);
+      }
+    });
+  });
+  return deleteQuestionsForConv_id;
 };
 
 

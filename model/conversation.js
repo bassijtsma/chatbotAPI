@@ -1,6 +1,8 @@
 var database = require('../initializers/database');
 var validator = require('validator');
 var xssFilters = require('xss-filters');
+var question = require('../model/question');
+var response = require('../model/response');
 
 var conversation = function() {};
 
@@ -22,7 +24,8 @@ conversation.insertConversation = function(requestBody, callback) {
 
   if (isValidRequest(requestBody)) {
       conversationObject = buildConversationObject(requestBody);
-      database.db.collection('conversations').insertOne(conversationObject, function (err, result) {
+      database.db.collection('conversations').insertOne(
+        conversationObject, function (err, result) {
         if (err) {
           callback(err, null);
         } else {
@@ -41,9 +44,9 @@ conversation.updateConversation = function(requestBody, callback) {
   if (isValidRequest(requestBody)) {
     conversationObject = buildConversationObject(requestBody);
     database.db.collection('conversations').updateOne({
-      "conv_id" : questionObject.conv_id
+      "conv_id" : conversationObject.conv_id
     }, {
-      $set : { "conv_name" : questionObject.conv_name}
+      $set : { "conv_name" : conversationObject.conv_name}
     }, function(err, results) {
       if (err) {
         callback(err, null);
@@ -56,29 +59,75 @@ conversation.updateConversation = function(requestBody, callback) {
     }
 };
 
+// TODO: works but hard to read. Maybe restructure without promises?
 conversation.deleteConversation = function(requestBody, callback) {
   var conversationObject;
+  var deleteConversation;
 
   if (isValidRequest(requestBody)) {
     conversationObject = buildConversationObject(requestBody);
+    deleteConversation = createDeleteConversationPromise(conversationObject);
+
+    deleteConversation.then(function(result) {
+      return question.createDeleteQuestionsForConv_idPromise(conversationObject.conv_id);
+    }, function(err) {
+      callback(err, null);
+    })
+    .then(function(result) {
+      return response.createDeleteResponsesForConv_idPromise(conversationObject.conv_id);
+    }, function(err) {
+      console.log('Error deleting questions related to the conv id', err);
+      callback(err, null);
+    })
+    .then(function(result){
+      // Success
+      callback(null, 'Deleted the conv_id and its related questions and responses');
+    }, function(err) {
+      console.log('Error deleting responses related to the conv id', err);
+      callback(err, null);
+    });
+  } else {
+    callback('Not a validRequest', null);
+  }
+};
+
+
+function createDeleteConversationPromise(conversationObject) {
+  var deleteConversation = new Promise(function(resolve, reject) {
     database.db.collection('conversations').deleteOne({
-      "conv_id" : questionObject.conv_id,
-      "conv_name" : questionObject.conv_name
+      "conv_id" : conversationObject.conv_id,
     }, function(err, results) {
       if (err) {
-        callback(err, null);
+        reject(err);
       } else {
         if (results.result.n > 0) {
-          callback(null, 'Question deleted successfully');
+          resolve('Question deleted successfully');
         } else {
-          callback('No document was found to delete');
+          reject('No document was found to delete');
         }
       }
     });
-  } else {
-      callback('Not a validRequest', null);
-    }
-};
+  });
+  return deleteConversation;
+}
+
+
+// var questionDeletePromise = new Promise(function(resolve, reject) {
+//   database.db.collection('conversations').deleteOne({
+//     "conv_id" : conversationObject.conv_id,
+//   }, function(err, results) {
+//     if (err) {
+//       callback(err, null);
+//     } else {
+//       if (results.result.n > 0) {
+//         callback(null, 'Question deleted successfully');
+//       } else {
+//         callback('No document was found to delete');
+//       }
+//     }
+//   });
+//
+// })
 
 
 function isValidRequest(requestBody) {
@@ -93,17 +142,17 @@ function isValidRequest(requestBody) {
 function buildConversationObject(requestBody) {
   console.log('requestbody: ', requestBody);
   conversationObject = {};
-  questionDocument.conv_name = validator.escape(requestBody.conv_name);
-  questionDocument.conv_id = parseInt(validator.escape(requestBody.conv_id));
+  conversationObject.conv_name = validator.escape(requestBody.conv_name);
+  conversationObject.conv_id = parseInt(validator.escape(requestBody.conv_id));
   return conversationObject;
 }
 
 function isValidConv_name(requestBody) {
   try {
-    var escapedText = validator.escape(requestBody.text);
+    var escapedText = validator.escape(requestBody.conv_name);
     return validator.isLength(escapedText, { min: 1, max : undefined});
   } catch (err) {
-    console.log('error validating text:', requestBody.text);
+    console.log('error validating text:', requestBody.conv_name);
     return false;
   }
 }

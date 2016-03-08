@@ -84,7 +84,20 @@ response.deleteResponse = function(requestBody, callback) {
     }
 };
 
-module.exports = response;
+response.createDeleteResponsesForConv_idPromise = function(conv_id) {
+  var deleteResponsesForConv_id = new Promise(function(resolve, reject){
+    database.db.collection('responses').deleteMany(
+      {"conv_id" : conv_id}, function (err, deleteResults) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(deleteResults);
+      }
+    });
+  });
+  return deleteResponsesForConv_id;
+};
+
 
 function isValidRequest(requestBody) {
   console.log('isvalidrequest...', requestBody);
@@ -151,3 +164,6 @@ function isValidResponse_to_q(requestBody) {
     return false;
   }
 }
+
+
+module.exports = response;

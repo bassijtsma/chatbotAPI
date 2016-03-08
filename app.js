@@ -14,11 +14,7 @@ async.series([
     });
   },
   function startServer(callback) {
-    console.log('app.js in stap 2');
     server(callback);
-  },
-  function yolo(callback) {
-    console.log('app.js in stap 3');
   }], function(err) {
     // the callback function thats run after completion or on error
     if (err) {
