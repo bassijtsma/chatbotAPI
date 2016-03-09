@@ -1,6 +1,7 @@
 var database = require('../initializers/database');
 var validator = require('validator');
 var xssFilters = require('xss-filters');
+var response = require('./response');
 
 var question = function() {};
 
@@ -61,6 +62,7 @@ question.updateQuestion = function(requestBody, callback) {
 
 question.deleteQuestion = function(requestBody, callback) {
   var questionObject;
+  var deleteRelatedResponse;
 
   if (isValidRequest(requestBody)) {
     questionObject = buildQuestionObject(requestBody);
@@ -73,7 +75,15 @@ question.deleteQuestion = function(requestBody, callback) {
         callback(err, null);
       } else {
         if (results.result.n > 0) {
-          callback(null, 'Question deleted successfully');
+          deleteRelatedResponse = response.deleteResponseForQuestion(
+            questionObject.q_nr, questionObject.conv_id);
+
+          deleteRelatedResponse.then(function() {
+            callback(null, 'Question and related Response deleted successfully');
+          }, function(err) {
+            console.log('error deleting related question')
+            callback(err, null);
+          });
         } else {
           callback('No document was found to delete');
         }

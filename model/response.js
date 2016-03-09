@@ -98,6 +98,25 @@ response.createDeleteResponsesForConv_idPromise = function(conv_id) {
   return deleteResponsesForConv_id;
 };
 
+response.deleteResponseForQuestion = function(q_id, conv_id) {
+  var deleteResponseForQuestion = new Promise(function(resolve, reject){
+    database.db.collection('responses').deleteMany(
+      {"conv_id" : conv_id, "response_to_q" : q_id}, function (err, deleteResult) {
+        if (err) {
+          reject(err);
+        } else {
+          if (results.result.n > 0) {
+              resolve(deleteResults);
+          } else {
+              reject('no responses related to the question were found to delete');
+          }
+        }
+      }
+    );
+  });
+  return deleteResponseForQuestion;
+};
+
 
 function isValidRequest(requestBody) {
   console.log('isvalidrequest...', requestBody);

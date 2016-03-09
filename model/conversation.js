@@ -60,6 +60,7 @@ conversation.updateConversation = function(requestBody, callback) {
 };
 
 // TODO: works but hard to read. Maybe restructure without promises?
+// could use async.waterfall()
 conversation.deleteConversation = function(requestBody, callback) {
   var conversationObject;
   var deleteConversation;
@@ -68,19 +69,18 @@ conversation.deleteConversation = function(requestBody, callback) {
     conversationObject = buildConversationObject(requestBody);
     deleteConversation = createDeleteConversationPromise(conversationObject);
 
-    deleteConversation.then(function(result) {
+    deleteConversation.then(function() {
       return question.createDeleteQuestionsForConv_idPromise(conversationObject.conv_id);
     }, function(err) {
       callback(err, null);
     })
-    .then(function(result) {
+    .then(function() {
       return response.createDeleteResponsesForConv_idPromise(conversationObject.conv_id);
     }, function(err) {
       console.log('Error deleting questions related to the conv id', err);
       callback(err, null);
     })
-    .then(function(result){
-      // Success
+    .then(function(){
       callback(null, 'Deleted the conv_id and its related questions and responses');
     }, function(err) {
       console.log('Error deleting responses related to the conv id', err);
