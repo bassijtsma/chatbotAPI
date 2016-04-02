@@ -8,6 +8,14 @@ var routes = require('../routes/index.js');
 var startServer = function(callback) {
 
   var app = express();
+
+  app.use(function(req, res, next) {
+   res.setHeader('Access-Control-Allow-Origin', '*');
+   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+   res.setHeader('Content-Type', 'application/json');
+   next();
+  });
+  
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json({type: '*/*'}));
 
