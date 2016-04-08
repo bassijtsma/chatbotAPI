@@ -112,23 +112,6 @@ function createDeleteConversationPromise(conversationObject) {
 }
 
 
-// var questionDeletePromise = new Promise(function(resolve, reject) {
-//   database.db.collection('conversations').deleteOne({
-//     "conv_id" : conversationObject.conv_id,
-//   }, function(err, results) {
-//     if (err) {
-//       callback(err, null);
-//     } else {
-//       if (results.result.n > 0) {
-//         callback(null, 'Question deleted successfully');
-//       } else {
-//         callback('No document was found to delete');
-//       }
-//     }
-//   });
-//
-// })
-
 
 function isValidRequest(requestBody) {
   if (!isValidConv_id(requestBody)) {

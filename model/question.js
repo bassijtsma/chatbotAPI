@@ -5,6 +5,9 @@ var response = require('./response');
 
 var question = function() {};
 
+// TODO: only updated the buildQuestionObject for insertQuestion function.
+// all other functions still broken
+
 question.getQuestions = function(callback) {
   var questionList = [];
   var cursor = database.db.collection('questions').find();
@@ -125,8 +128,10 @@ function isValidRequest(requestBody) {
 function buildQuestionObject(requestBody) {
   console.log('requestbody: ', requestBody);
   questionDocument = {};
-  questionDocument.text = validator.escape(requestBody.text);
-  questionDocument.q_nr = parseInt(validator.escape(requestBody.q_nr));
+  questionDocument.m_nr = parseInt(validator.escape(requestBody.q_nr));
+  questionDocument.qtext = validator.escape(requestBody.text);
+  questionDocument.rtext = '';
+  questionDocument.is_alternative = false;
   questionDocument.conv_id = parseInt(validator.escape(requestBody.conv_id));
   return questionDocument;
 }
