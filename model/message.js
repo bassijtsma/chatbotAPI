@@ -20,10 +20,10 @@ message.getMessages = function(callback) {
 
 message.createMessage = function(requestBody, callback) {
   console.log('create msg from message model');
-  var questionObject;
+  var messageObject;
 
   if (isValidRequest(requestBody)) {
-      messageObject = buildmessageObject(requestBody);
+      messageObject = buildMessageObject(requestBody);
       database.db.collection('messages').insertOne(messageObject, function (err, result) {
         if (err) {
           callback(err, null);
@@ -37,15 +37,57 @@ message.createMessage = function(requestBody, callback) {
 };
 
 message.deleteMessage = function(requestBody, callback) {
-  console.log('delete msg from message model');
-  callback(null, 'TODO');
-  return;
+  var messageObject;
+
+  if (isValidRequest(requestBody)) {
+    messageObject = buildMessageObject(requestBody);
+    database.db.collection('messages').deleteOne({
+      "m_nr" : messageObject.m_nr,
+      "conv_id" : messageObject.conv_id,
+    }, function(err, results) {
+      if (err) {
+        callback(err, null);
+      } else {
+        if (results.result.n > 0) {
+          callback(null, 'Message deleted successfully');
+        } else {
+          callback('No document was found to delete', null);
+        }
+      }
+    });
+  } else {
+      callback('Not a validRequest', null);
+    }
 };
 
 message.updateMessage = function(requestBody, callback) {
-  console.log('update msg from message model');
-  callback(null, 'TODO');
-  return;
+  var messageObject;
+
+  if (isValidRequest(requestBody)) {
+    messageObject = buildMessageObject(requestBody);
+    database.db.collection('messages').updateOne({
+      "m_nr" : messageObject.m_nr,
+      "conv_id" : messageObject.conv_id
+    }, {
+      $set : {
+        "qtext" : messageObject.qtext,
+        "rtext" : messageObject.rtext,
+        "is_alternative" : messageObject.is_alternative }
+    }, function(err, results) {
+      if (err) {
+        callback(err, null);
+      } else {
+        if (results.result.n > 0 ) {
+            callback(null, 'Message updated successfully');
+        } else {
+          callback('No document was found to update', null);
+        }
+
+      }
+    });
+  } else {
+      callback('Not a validRequest', null);
+    }
 };
 
 function isValidRequest(requestBody) {
@@ -101,7 +143,7 @@ function isValidIs_Alternative(is_alternative) {
     }
 }
 
-function buildmessageObject(requestBody) {
+function buildMessageObject(requestBody) {
   messageDocument = {};
   messageDocument.m_nr = parseInt(validator.escape(requestBody.m_nr));
   messageDocument.qtext = validator.escape(requestBody.qtext);
@@ -111,7 +153,6 @@ function buildmessageObject(requestBody) {
   } else {
     messageDocument.is_alternative = false;
   }
-
   messageDocument.conv_id = parseInt(validator.escape(requestBody.conv_id));
   return messageDocument;
 }
