@@ -65,26 +65,18 @@ conversation.deleteConversation = function(requestBody, callback) {
   var conversationObject;
   var deleteConversation;
 
-  console.log('delete conversation will fail, it tries to delete the questions and responses that no longer exist. refactor to delete messages');
   if (isValidRequest(requestBody)) {
     conversationObject = buildConversationObject(requestBody);
-    deleteConversation = createDeleteConversationPromise(conversationObject);
 
-    deleteConversation.then(function() {
-      return question.createDeleteQuestionsForConv_idPromise(conversationObject.conv_id);
+    createDeleteConversationPromise(conversationObject).then(function() {
+      return message.deleteMessagesForConv_idPromise(conversationObject.conv_id);
     }, function(err) {
-      callback(err, null);
-    })
-    .then(function() {
-      return response.createDeleteResponsesForConv_idPromise(conversationObject.conv_id);
-    }, function(err) {
-      console.log('Error deleting questions related to the conv id', err);
       callback(err, null);
     })
     .then(function(){
-      callback(null, 'Deleted the conv_id and its related questions and responses');
+      callback(null, 'Deleted the conv_id and its messages');
     }, function(err) {
-      console.log('Error deleting responses related to the conv id', err);
+      console.log('Error deleting messages related to the conv id', err);
       callback(err, null);
     });
   } else {
