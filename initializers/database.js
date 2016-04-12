@@ -1,6 +1,6 @@
 // db initialization singleton
 var mongoClient = require('mongodb').MongoClient;
-var mongoServer = require('mongodb').Server
+var mongoServer = require('mongodb').Server;
 var assert = require('assert');
 var config = require('./config');
 
@@ -18,10 +18,10 @@ database.createDBConnection = function(callback) {
     } else {
       console.log('db connection created!');
       database.db = db;
-      if (callback !== undefined) { callback(database)};
+      if (callback !== undefined) { callback(database);}
     }
-  })
-}
+  });
+};
 
 database.getDBConnection = function(callback) {
   if (typeof(database.db) === 'undefined') {

@@ -65,6 +65,7 @@ conversation.deleteConversation = function(requestBody, callback) {
   var conversationObject;
   var deleteConversation;
 
+  console.log('delete conversation will fail, it tries to delete the questions and responses that no longer exist. refactor to delete messages');
   if (isValidRequest(requestBody)) {
     conversationObject = buildConversationObject(requestBody);
     deleteConversation = createDeleteConversationPromise(conversationObject);
