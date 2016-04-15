@@ -35,7 +35,7 @@ module.exports = function(router) {
     });
   })
   .post(function(req, res, next) {
-    conversation.insertConversation(function(err, insertResult) {
+    conversation.insertConversation(req.body, function(err, insertResult) {
       if (err) {
         res.send({'results' : 'error', 'error' : err});
       } else {

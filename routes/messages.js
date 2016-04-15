@@ -33,6 +33,7 @@ module.exports = function(router) {
     });
   })
   .delete(function(req, res, next) {
+    console.log(req.body);
     message.deleteMessage(req.body, function(err, deleteResult) {
       if (err) {
         res.send({'results' : 'error', 'error' : err});

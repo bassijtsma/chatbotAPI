@@ -2,6 +2,8 @@ var database = require('../initializers/database');
 var validator = require('validator');
 var xssFilters = require('xss-filters');
 var response = require('./response');
+var question = require('./question');
+
 
 var message = function() {};
 
@@ -22,7 +24,7 @@ message.createMessage = function(requestBody, callback) {
   console.log('create msg from message model');
   var messageObject;
 
-  if (isValidRequest(requestBody)) {
+  if (isValidCreateRequest(requestBody)) {
       messageObject = buildMessageObject(requestBody);
       database.db.collection('messages').insertOne(messageObject, function (err, result) {
         if (err) {
@@ -39,7 +41,7 @@ message.createMessage = function(requestBody, callback) {
 message.deleteMessage = function(requestBody, callback) {
   var messageObject;
 
-  if (isValidRequest(requestBody)) {
+  if (isValidDeleteRequest(requestBody)) {
     messageObject = buildMessageObject(requestBody);
     database.db.collection('messages').deleteOne({
       "m_nr" : messageObject.m_nr,
@@ -63,7 +65,7 @@ message.deleteMessage = function(requestBody, callback) {
 message.updateMessage = function(requestBody, callback) {
   var messageObject;
 
-  if (isValidRequest(requestBody)) {
+  if (isValidUpdateRequest(requestBody)) {
     messageObject = buildMessageObject(requestBody);
     database.db.collection('messages').updateOne({
       "m_nr" : messageObject.m_nr,
@@ -89,7 +91,7 @@ message.updateMessage = function(requestBody, callback) {
     }
 };
 
-function isValidRequest(requestBody) {
+function isValidCreateRequest(requestBody) {
   if (!isValidM_nr(requestBody.m_nr)) {
     console.log('m_nr not valid'); return false;}
   else if (!isValidText(requestBody.qtext)) {
@@ -104,12 +106,35 @@ function isValidRequest(requestBody) {
 }
 
 
+function isValidDeleteRequest(requestBody) {
+  if (!isValidM_nr(requestBody.m_nr)) {
+    console.log('m_nr not valid'); return false;}
+  else if (!isValidConv_id(requestBody.conv_id)) {
+    console.log('conv_id not valid'); return false;}
+  else { console.log('valid request!'); return true;}
+}
+
+
+function isValidUpdateRequest(requestBody) {
+  if (!isValidM_nr(requestBody.m_nr)) {
+    console.log('m_nr not valid'); return false;}
+  else if (!isValidText(requestBody.qtext)) {
+    console.log('question text not valid'); return false;}
+  else if (!isValidText(requestBody.rtext)) {
+    console.log('response text not valid'); return false;}
+  else if (!isValidConv_id(requestBody.conv_id)) {
+    console.log('conv_id not valid'); return false;}
+  else if (!isValidIs_Alternative(requestBody.is_alternative)) {
+    console.log('is_alternative not valid'); return false;}
+  else { console.log('valid request!'); return true;}
+}
+
 function isValidM_nr(m_nr) {
   try {
     var escapedM_nr = validator.escape(m_nr);
     return validator.isInt(escapedM_nr, { min: 0, max: 99999}); // arbitrary limit
   } catch (err) {
-    console.log('error validating q_nr:', m_nr);
+    console.log('error validating m_nr:', m_nr);
     return false;
   }
 }

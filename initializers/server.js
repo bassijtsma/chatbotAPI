@@ -13,10 +13,11 @@ var startServer = function(callback) {
    res.setHeader('Access-Control-Allow-Origin', '*');
    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
    res.setHeader('Content-Type', 'application/json');
+   res.setHeader('Access-Control-Allow-Headers', 'Accept');
    next();
   });
 
-  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(bodyParser.urlencoded({extended: false}));
   app.use(bodyParser.json({type: '*/*'}));
 
   routes(app);
