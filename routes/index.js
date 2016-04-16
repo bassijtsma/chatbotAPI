@@ -1,8 +1,5 @@
 var express = require('express');
 var routes = require('require-dir')();
-var bodyParser = require('body-parser');
-
-var urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 module.exports = function(app) {
   // require-dir reads the folder and require() all js and json files inside.
@@ -12,6 +9,6 @@ module.exports = function(app) {
     // initialize all routes with router arg to add functionality to the router.
     require('./' + routeName)(router);
     // Add router to the corresponding  route
-    app.use('/' + routeName, urlencodedParser, router);
+    app.use('/' + routeName, router);
   });
 };
