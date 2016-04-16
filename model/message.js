@@ -41,7 +41,7 @@ message.deleteMessage = function(requestBody, callback) {
   var messageObject;
 
   if (isValidDeleteRequest(requestBody)) {
-    messageObject = buildMessageObject(requestBody);
+    messageObject = buildDeleteMessageObject(requestBody);
     database.db.collection('messages').deleteOne({
       "m_nr" : messageObject.m_nr,
       "conv_id" : messageObject.conv_id,
@@ -129,19 +129,24 @@ function isValidUpdateRequest(requestBody) {
   else { console.log('valid request!'); return true;}
 }
 
+
 function isValidM_nr(m_nr) {
   try {
     if (typeof(m_nr) === 'number') {
       return (m_nr > 0 && m_nr < 99999); // arbitrary for safety
-    } else {
+    } else if (typeof(m_nr) === 'string') {
       var escapedM_nr = validator.escape(m_nr);
       return validator.isInt(escapedM_nr, { min: 0, max: 99999}); // arbitrary for safety
+    } else {
+      console.log('m_nr not a string or a number');
+      return false;
     }
   } catch (err) {
     console.log('error validating m_nr:', m_nr, err);
     return false;
   }
 }
+
 
 function isValidText(messageText) {
   try {
@@ -153,13 +158,16 @@ function isValidText(messageText) {
   }
 }
 
+
 function isValidConv_id(conv_id) {
   try {
-    if (typeof(m_nr) === 'number') {
+    if (typeof(conv_id) === 'number') {
       return (m_nr > 0 && m_nr < 99999); // arbitrary for safety
-    } else {
+    } else if (typeof(conv_id) === 'string') {
       var escapedConv_id = validator.escape(conv_id);
       return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
+    } else {
+      console.log('conv_id not a string');
     }
   } catch (err) {
     console.log('error validating conv_id:', conv_id);
@@ -167,26 +175,55 @@ function isValidConv_id(conv_id) {
   }
 }
 
+
 function isValidIs_Alternative(is_alternative) {
     try {
-        return validator.isBoolean(is_alternative);
+      return validator.isBoolean(is_alternative);
     } catch (err) {
       return false;
     }
 }
 
+
 function buildMessageObject(requestBody) {
   messageDocument = {};
-  messageDocument.m_nr = parseInt(validator.escape(requestBody.m_nr));
+  messageDocument.m_nr = returnIntFromValue(requestBody.m_nr);
+  messageDocument.conv_id = returnIntFromValue(requestBody.conv_id);
+  messageDocument.is_alternative = returnBoolFromValue(requestBody.is_alternative);
   messageDocument.qtext = validator.escape(requestBody.qtext);
   messageDocument.rtext = validator.escape(requestBody.rtext);
-  if (String(requestBody.is_alternative) == "true") {
-    messageDocument.is_alternative = true;
-  } else {
-    messageDocument.is_alternative = false;
-  }
-  messageDocument.conv_id = parseInt(validator.escape(requestBody.conv_id));
   return messageDocument;
+}
+
+
+function buildDeleteMessageObject(requestBody) {
+  messageDocument = {};
+  messageDocument.m_nr = returnIntFromValue(requestBody.m_nr);
+  messageDocument.conv_id = returnIntFromValue(requestBody.conv_id);
+  return messageDocument;
+}
+
+
+// The isValidXRequest verified that value is either a string or an int.
+// The 2 functions below wrap the parsing and validation of this value.
+function returnIntFromValue(value) {
+  if (typeof(value) === 'string') {
+    return parseInt(validator.escape(value));
+  } else {
+    return value;
+  }
+}
+
+function returnBoolFromValue(value) {
+  if (typeof(value) === 'string') {
+      if (String(value) == "true") {
+        return true;
+      } else {
+        return false;
+      }
+  } else {
+    return value;
+  }
 }
 
 

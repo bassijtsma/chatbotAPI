@@ -31,10 +31,12 @@ module.exports = function(router) {
         res.send({'results' : updateResult});
       }
     });
-  })
+  });
+
+  router.route('/:conv_id/:m_nr')
   .delete(function(req, res, next) {
-    console.log(req.body);
-    message.deleteMessage(req.body, function(err, deleteResult) {
+    requestBody = {'conv_id' : req.params.conv_id, 'm_nr' : req.params.m_nr}
+    message.deleteMessage(requestBody, function(err, deleteResult) {
       if (err) {
         res.send({'results' : 'error', 'error' : err});
       } else {
