@@ -227,18 +227,4 @@ function returnBoolFromValue(value) {
 }
 
 
-question.deleteMessagesForConv_idPromise = function(conv_id) {
-  var deleteMessagesForConv_id = new Promise(function(resolve, reject){
-    database.db.collection('messages').deleteMany(
-      {"conv_id" : conv_id}, function (err, deleteResults) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(deleteResults);
-      }
-    });
-  });
-  return deleteMessagesForConv_id;
-};
-
 module.exports = message;

@@ -2,8 +2,8 @@
 var conversation = require('../model/conversation');
 
 module.exports = function(router) {
-  router.route('/:conv_nr')
-  // handle HTTP calls for /conversations/:conv_nr
+  router.route('/:conv_id')
+  // handle HTTP calls for /conversations/:conv_id
   .put(function(req, res, next) {
     conversation.updateConversation(req.body, function(err, updateResult) {
       if (err) {
@@ -14,7 +14,8 @@ module.exports = function(router) {
     });
   })
   .delete(function (req, res, next) {
-    conversation.deleteConversation(req.body, function(err, deleteResult) {
+    var conv_id = req.params.conv_id;
+    conversation.deleteConversation(conv_id, function(err, deleteResult) {
       if (err) {
         res.send({'results' : 'error', 'error' : err});
       } else {

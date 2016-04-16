@@ -61,15 +61,13 @@ conversation.updateConversation = function(requestBody, callback) {
 
 // TODO: works but hard to read. Maybe restructure without promises?
 // could use async.waterfall()
-conversation.deleteConversation = function(requestBody, callback) {
-  var conversationObject;
-  var deleteConversation;
+conversation.deleteConversation = function(requestconv_id, callback) {
 
-  if (isValidRequest(requestBody)) {
-    conversationObject = buildConversationObject(requestBody);
+  if (isValidDeleteRequest(requestconv_id)) {
+    conv_id = returnIntFromValue(requestconv_id);
 
-    createDeleteConversationPromise(conversationObject).then(function() {
-      return message.deleteMessagesForConv_idPromise(conversationObject.conv_id);
+    createDeleteConversationPromise(conv_id).then(function() {
+      return message.deleteMessagesForConv_idPromise(conv_id);
     }, function(err) {
       callback(err, null);
     })
@@ -85,18 +83,18 @@ conversation.deleteConversation = function(requestBody, callback) {
 };
 
 
-function createDeleteConversationPromise(conversationObject) {
+function createDeleteConversationPromise(conv_id) {
   var deleteConversation = new Promise(function(resolve, reject) {
     database.db.collection('conversations').deleteOne({
-      "conv_id" : conversationObject.conv_id,
+      "conv_id" : conv_id,
     }, function(err, results) {
       if (err) {
         reject(err);
       } else {
         if (results.result.n > 0) {
-          resolve('Question deleted successfully');
+          resolve('Conversation deleted successfully');
         } else {
-          reject('No document was found to delete');
+          reject('No conversation was found to delete');
         }
       }
     });
@@ -105,12 +103,18 @@ function createDeleteConversationPromise(conversationObject) {
 }
 
 
-
 function isValidRequest(requestBody) {
   if (!isValidConv_id(requestBody)) {
-    console.log('q_nr not valid'); return false;}
+    console.log('conv_id not valid'); return false;}
   else if (!isValidConv_name(requestBody)) {
     console.log('text not valid'); return false;}
+  else { console.log('valid request!'); return true;}
+}
+
+
+function isValidDeleteRequest(conv_id) {
+  if (!isValidConv_id(conv_id)) {
+    console.log('conv_id not valid'); return false;}
   else { console.log('valid request!'); return true;}
 }
 
@@ -123,6 +127,7 @@ function buildConversationObject(requestBody) {
   return conversationObject;
 }
 
+
 function isValidConv_name(requestBody) {
   try {
     var escapedText = validator.escape(requestBody.conv_name);
@@ -133,13 +138,27 @@ function isValidConv_name(requestBody) {
   }
 }
 
-function isValidConv_id(requestBody) {
+function isValidConv_id(conv_id) {
   try {
-    var escapedConv_id = validator.escape(requestBody.conv_id);
-    return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
+    if (typeof(conv_id) === 'number') {
+      return (m_nr > 0 && m_nr < 99999); // arbitrary for safety
+    } else if (typeof(conv_id) === 'string') {
+      var escapedConv_id = validator.escape(conv_id);
+      return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
+    } else {
+      console.log('conv_id not a string');
+    }
   } catch (err) {
-    console.log('error validating conv_id:', requestBody.conv_id);
+    console.log('error validating conv_id:', conv_id);
     return false;
+  }
+}
+
+function returnIntFromValue(value) {
+  if (typeof(value) === 'string') {
+    return parseInt(validator.escape(value));
+  } else {
+    return value;
   }
 }
 
