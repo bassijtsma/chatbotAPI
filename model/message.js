@@ -21,7 +21,6 @@ message.getMessages = function(callback) {
 };
 
 message.createMessage = function(requestBody, callback) {
-  console.log('create msg from message model');
   var messageObject;
 
   if (isValidCreateRequest(requestBody)) {
@@ -92,6 +91,7 @@ message.updateMessage = function(requestBody, callback) {
 };
 
 function isValidCreateRequest(requestBody) {
+  console.log('the req body:', requestBody)
   if (!isValidM_nr(requestBody.m_nr)) {
     console.log('m_nr not valid'); return false;}
   else if (!isValidText(requestBody.qtext)) {
@@ -131,10 +131,14 @@ function isValidUpdateRequest(requestBody) {
 
 function isValidM_nr(m_nr) {
   try {
-    var escapedM_nr = validator.escape(m_nr);
-    return validator.isInt(escapedM_nr, { min: 0, max: 99999}); // arbitrary limit
+    if (typeof(m_nr) === 'number') {
+      return (m_nr > 0 && m_nr < 99999); // arbitrary for safety
+    } else {
+      var escapedM_nr = validator.escape(m_nr);
+      return validator.isInt(escapedM_nr, { min: 0, max: 99999}); // arbitrary for safety
+    }
   } catch (err) {
-    console.log('error validating m_nr:', m_nr);
+    console.log('error validating m_nr:', m_nr, err);
     return false;
   }
 }
@@ -151,8 +155,12 @@ function isValidText(messageText) {
 
 function isValidConv_id(conv_id) {
   try {
-    var escapedConv_id = validator.escape(conv_id);
-    return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
+    if (typeof(m_nr) === 'number') {
+      return (m_nr > 0 && m_nr < 99999); // arbitrary for safety
+    } else {
+      var escapedConv_id = validator.escape(conv_id);
+      return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
+    }
   } catch (err) {
     console.log('error validating conv_id:', conv_id);
     return false;

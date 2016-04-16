@@ -13,7 +13,7 @@ var startServer = function(callback) {
    res.setHeader('Access-Control-Allow-Origin', '*');
    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
    res.setHeader('Content-Type', 'application/json');
-   res.setHeader('Access-Control-Allow-Headers', 'Accept');
+   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
    next();
   });
 
