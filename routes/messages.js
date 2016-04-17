@@ -14,7 +14,6 @@ module.exports = function(router) {
     });
   })
   .post(function(req, res, next) {
-    console.log('creating..', req.body);
     message.createMessage(req.body, function(err, createResult) {
       if (err) {
         res.send({'results' : 'error', 'error' : err});

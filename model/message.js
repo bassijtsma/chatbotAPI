@@ -22,6 +22,7 @@ message.getMessages = function(callback) {
 
 message.createMessage = function(requestBody, callback) {
   var messageObject;
+  console.log('creating new message...', requestBody)
 
   if (isValidCreateRequest(requestBody)) {
       messageObject = buildMessageObject(requestBody);
@@ -91,7 +92,6 @@ message.updateMessage = function(requestBody, callback) {
 };
 
 function isValidCreateRequest(requestBody) {
-  console.log('the req body:', requestBody)
   if (!isValidM_nr(requestBody.m_nr)) {
     console.log('m_nr not valid'); return false;}
   else if (!isValidText(requestBody.qtext)) {
@@ -162,7 +162,7 @@ function isValidText(messageText) {
 function isValidConv_id(conv_id) {
   try {
     if (typeof(conv_id) === 'number') {
-      return (m_nr > 0 && m_nr < 99999); // arbitrary for safety
+      return (conv_id > 0 && conv_id < 99999); // arbitrary for safety
     } else if (typeof(conv_id) === 'string') {
       var escapedConv_id = validator.escape(conv_id);
       return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
@@ -178,7 +178,11 @@ function isValidConv_id(conv_id) {
 
 function isValidIs_Alternative(is_alternative) {
     try {
-      return validator.isBoolean(is_alternative);
+      if (typeof(is_alternative) === 'string') {
+        return validator.isBoolean(is_alternative);
+      } else if (typeof(is_alternative) === 'boolean') {
+        return true;
+      }
     } catch (err) {
       return false;
     }
@@ -187,8 +191,8 @@ function isValidIs_Alternative(is_alternative) {
 
 function buildMessageObject(requestBody) {
   messageDocument = {};
-  messageDocument.m_nr = returnIntFromValue(requestBody.m_nr);
-  messageDocument.conv_id = returnIntFromValue(requestBody.conv_id);
+  messageDocument.m_nr = returnNumberFromValue(requestBody.m_nr);
+  messageDocument.conv_id = returnNumberFromValue(requestBody.conv_id);
   messageDocument.is_alternative = returnBoolFromValue(requestBody.is_alternative);
   messageDocument.qtext = validator.escape(requestBody.qtext);
   messageDocument.rtext = validator.escape(requestBody.rtext);
@@ -198,15 +202,15 @@ function buildMessageObject(requestBody) {
 
 function buildDeleteMessageObject(requestBody) {
   messageDocument = {};
-  messageDocument.m_nr = returnIntFromValue(requestBody.m_nr);
-  messageDocument.conv_id = returnIntFromValue(requestBody.conv_id);
+  messageDocument.m_nr = returnNumberFromValue(requestBody.m_nr);
+  messageDocument.conv_id = returnNumberFromValue(requestBody.conv_id);
   return messageDocument;
 }
 
 
 // The isValidXRequest verified that value is either a string or an int.
 // The 2 functions below wrap the parsing and validation of this value.
-function returnIntFromValue(value) {
+function returnNumberFromValue(value) {
   if (typeof(value) === 'string') {
     return parseInt(validator.escape(value));
   } else {
