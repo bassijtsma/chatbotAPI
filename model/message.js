@@ -151,7 +151,7 @@ function isValidM_nr(m_nr) {
 function isValidText(messageText) {
   try {
     var escapedText = validator.escape(messageText);
-    return validator.isLength(escapedText, { min: 1, max : undefined});
+    return validator.isLength(escapedText, { min: 0, max : undefined});
   } catch (err) {
     console.log('error validating text:', messageText);
     return false;
