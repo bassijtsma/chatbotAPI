@@ -1,8 +1,7 @@
 var database = require('../initializers/database');
 var validator = require('validator');
 var xssFilters = require('xss-filters');
-var question = require('../model/question');
-var response = require('../model/response');
+var message = require('../model/message');
 
 var conversation = function() {};
 
@@ -59,8 +58,7 @@ conversation.updateConversation = function(requestBody, callback) {
     }
 };
 
-// TODO: works but hard to read. Maybe restructure without promises?
-// could use async.waterfall()
+
 conversation.deleteConversation = function(requestconv_id, callback) {
 
   if (isValidDeleteRequest(requestconv_id)) {
@@ -104,9 +102,9 @@ function createDeleteConversationPromise(conv_id) {
 
 
 function isValidRequest(requestBody) {
-  if (!isValidConv_id(requestBody)) {
+  if (!isValidConv_id(requestBody.conv_id)) {
     console.log('conv_id not valid'); return false;}
-  else if (!isValidConv_name(requestBody)) {
+  else if (!isValidConv_name(requestBody.conv_name)) {
     console.log('text not valid'); return false;}
   else { console.log('valid request!'); return true;}
 }
@@ -128,12 +126,12 @@ function buildConversationObject(requestBody) {
 }
 
 
-function isValidConv_name(requestBody) {
+function isValidConv_name(conv_name) {
   try {
-    var escapedText = validator.escape(requestBody.conv_name);
+    var escapedText = validator.escape(conv_name);
     return validator.isLength(escapedText, { min: 1, max : undefined});
   } catch (err) {
-    console.log('error validating text:', requestBody.conv_name);
+    console.log('error validating text:', conv_name);
     return false;
   }
 }
@@ -146,7 +144,7 @@ function isValidConv_id(conv_id) {
       var escapedConv_id = validator.escape(conv_id);
       return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
     } else {
-      console.log('conv_id not a string');
+      console.log('conv_id not a string  or number: '+ conv_id);
     }
   } catch (err) {
     console.log('error validating conv_id:', conv_id);
