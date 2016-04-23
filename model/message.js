@@ -1,8 +1,6 @@
 var database = require('../initializers/database');
 var validator = require('validator');
 var xssFilters = require('xss-filters');
-var response = require('./response');
-var question = require('./question');
 
 
 var message = function() {};
