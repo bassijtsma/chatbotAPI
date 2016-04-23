@@ -139,7 +139,7 @@ function isValidConv_name(conv_name) {
 function isValidConv_id(conv_id) {
   try {
     if (typeof(conv_id) === 'number') {
-      return (m_nr > 0 && m_nr < 99999); // arbitrary for safety
+      return (conv_id > 0 && conv_id < 99999); // arbitrary for safety
     } else if (typeof(conv_id) === 'string') {
       var escapedConv_id = validator.escape(conv_id);
       return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
@@ -147,7 +147,7 @@ function isValidConv_id(conv_id) {
       console.log('conv_id not a string  or number: '+ conv_id);
     }
   } catch (err) {
-    console.log('error validating conv_id:', conv_id);
+    console.log('error validating conv_id:', conv_id, err);
     return false;
   }
 }
