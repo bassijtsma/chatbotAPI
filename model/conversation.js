@@ -121,7 +121,11 @@ function buildConversationObject(requestBody) {
   console.log('requestbody: ', requestBody);
   conversationObject = {};
   conversationObject.conv_name = validator.escape(requestBody.conv_name);
-  conversationObject.conv_id = parseInt(validator.escape(requestBody.conv_id));
+  if (typeof(requestBody.conv_id) === 'string') {
+    conversationObject.conv_id = parseInt(validator.escape(requestBody.conv_id));
+  } else {
+    conversationObject.conv_id = requestBody.conv_id
+  }
   return conversationObject;
 }
 
