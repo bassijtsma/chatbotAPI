@@ -89,6 +89,22 @@ message.updateMessage = function(requestBody, callback) {
     }
 };
 
+message.deleteMessagesForConv_idPromise = function(conv_id)  {
+  return new Promise(function(resolve, reject) {
+    database.db.collection('messages').deleteMany({
+      'conv_id': conv_id
+    }, function(err, deleteResults) {
+      if (err) {
+        console.log('error deleting msgs for convid:', err)
+        reject(err);
+      } else {
+        resolve(deleteResults);
+      }
+    })
+  })
+}
+
+
 function isValidCreateRequest(requestBody) {
   if (!isValidM_nr(requestBody.m_nr)) {
     console.log('m_nr not valid'); return false;}
@@ -151,7 +167,7 @@ function isValidText(messageText) {
     var escapedText = validator.escape(messageText);
     return validator.isLength(escapedText, { min: 0, max : undefined});
   } catch (err) {
-    console.log('error validating text:', messageText);
+    console.log('error validating text:', messageText, err);
     return false;
   }
 }
@@ -168,7 +184,7 @@ function isValidConv_id(conv_id) {
       console.log('conv_id not a string');
     }
   } catch (err) {
-    console.log('error validating conv_id:', conv_id);
+    console.log('error validating conv_id:', conv_id, err);
     return false;
   }
 }

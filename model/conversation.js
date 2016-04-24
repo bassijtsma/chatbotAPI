@@ -24,11 +24,15 @@ conversation.insertConversation = function(requestBody, callback) {
   if (isValidRequest(requestBody)) {
       conversationObject = buildConversationObject(requestBody);
       database.db.collection('conversations').insertOne(
-        conversationObject, function (err, result) {
+        conversationObject, function (err, results) {
         if (err) {
           callback(err, null);
         } else {
-          callback(null, 'Conversation inserted successfully');
+          if (results.result.n > 0 ) {
+            callback(null, 'Conversation inserted successfully');
+          } else {
+            callback('No conversation was found to update', null);
+          }
         }
       });
   } else {
@@ -50,7 +54,12 @@ conversation.updateConversation = function(requestBody, callback) {
       if (err) {
         callback(err, null);
       } else {
-        callback(null, 'Conversation updated successfully');
+        if (results.result.n > 0 ) {
+          callback(null, 'Conversation updated successfully');
+        } else {
+          callback('No conversation was found to update', null);
+        }
+
       }
     });
   } else {
