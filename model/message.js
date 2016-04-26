@@ -38,12 +38,11 @@ message.createMessage = function(requestBody, callback) {
 
 message.deleteMessage = function(requestBody, callback) {
   var messageObject;
-
+  console.log('the req body:', requestBody);
   if (isValidDeleteRequest(requestBody)) {
     messageObject = buildDeleteMessageObject(requestBody);
     database.db.collection('messages').deleteOne({
-      "m_nr" : messageObject.m_nr,
-      "conv_id" : messageObject.conv_id,
+      "key" : messageObject.key
     }, function(err, results) {
       if (err) {
         callback(err, null);
@@ -66,8 +65,7 @@ message.updateMessage = function(requestBody, callback) {
   if (isValidUpdateRequest(requestBody)) {
     messageObject = buildMessageObject(requestBody);
     database.db.collection('messages').updateOne({
-      "m_nr" : messageObject.m_nr,
-      "conv_id" : messageObject.conv_id
+      "key" : messageObject.key
     }, {
       $set : {
         "qtext" : messageObject.qtext,
@@ -78,7 +76,7 @@ message.updateMessage = function(requestBody, callback) {
         callback(err, null);
       } else {
         if (results.result.n > 0 ) {
-            callback(null, 'Message updated successfully');
+          callback(null, 'Message updated successfully');
         } else {
           callback('No document was found to update', null);
         }
@@ -108,6 +106,8 @@ message.deleteMessagesForConv_idPromise = function(conv_id)  {
 function isValidCreateRequest(requestBody) {
   if (!isValidM_nr(requestBody.m_nr)) {
     console.log('m_nr not valid'); return false;}
+  else if (!isValidKey(requestBody.key)) {
+    console.log('ley not valid'); return false;}
   else if (!isValidText(requestBody.qtext)) {
     console.log('question text not valid'); return false;}
   else if (!isValidText(requestBody.rtext)) {
@@ -121,10 +121,8 @@ function isValidCreateRequest(requestBody) {
 
 
 function isValidDeleteRequest(requestBody) {
-  if (!isValidM_nr(requestBody.m_nr)) {
-    console.log('m_nr not valid'); return false;}
-  else if (!isValidConv_id(requestBody.conv_id)) {
-    console.log('conv_id not valid'); return false;}
+  if (!isValidKey(requestBody.key)) {
+    console.log('key not valid'); return false;}
   else { console.log('valid request!'); return true;}
 }
 
@@ -132,6 +130,8 @@ function isValidDeleteRequest(requestBody) {
 function isValidUpdateRequest(requestBody) {
   if (!isValidM_nr(requestBody.m_nr)) {
     console.log('m_nr not valid'); return false;}
+  else if (!isValidKey(requestBody.key)) {
+    console.log('key not valid'); return false;}
   else if (!isValidText(requestBody.qtext)) {
     console.log('question text not valid'); return false;}
   else if (!isValidText(requestBody.rtext)) {
@@ -147,10 +147,10 @@ function isValidUpdateRequest(requestBody) {
 function isValidM_nr(m_nr) {
   try {
     if (typeof(m_nr) === 'number') {
-      return (m_nr > 0 && m_nr < 99999); // arbitrary for safety
+      return (m_nr > 0);
     } else if (typeof(m_nr) === 'string') {
       var escapedM_nr = validator.escape(m_nr);
-      return validator.isInt(escapedM_nr, { min: 0, max: 99999}); // arbitrary for safety
+      return validator.isInt(escapedM_nr, { min: 0});
     } else {
       console.log('m_nr not a string or a number');
       return false;
@@ -176,15 +176,32 @@ function isValidText(messageText) {
 function isValidConv_id(conv_id) {
   try {
     if (typeof(conv_id) === 'number') {
-      return (conv_id > 0 && conv_id < 99999); // arbitrary for safety
+      return (conv_id > 0);
     } else if (typeof(conv_id) === 'string') {
       var escapedConv_id = validator.escape(conv_id);
-      return validator.isInt(escapedConv_id, { min: 0, max: 99999}); // arbitrary limit
+      return validator.isInt(escapedConv_id, { min: 0});
     } else {
       console.log('conv_id not a string');
     }
   } catch (err) {
     console.log('error validating conv_id:', conv_id, err);
+    return false;
+  }
+}
+
+function isValidKey(key) {
+  try {
+    if (typeof(key) === 'number') {
+      return (key > 0);
+    } else if (typeof(key) === 'string') {
+      var escapedKey = validator.escape(key);
+      return validator.isInt(escapedKey, { min: 0});
+    } else {
+      console.log('key not a string or a number');
+      return false;
+    }
+  } catch (err) {
+    console.log('error validating key:', key, err);
     return false;
   }
 }
@@ -210,14 +227,14 @@ function buildMessageObject(requestBody) {
   messageDocument.is_alternative = returnBoolFromValue(requestBody.is_alternative);
   messageDocument.qtext = validator.escape(requestBody.qtext);
   messageDocument.rtext = validator.escape(requestBody.rtext);
+  messageDocument.key = requestBody.key;
   return messageDocument;
 }
 
 
 function buildDeleteMessageObject(requestBody) {
   messageDocument = {};
-  messageDocument.m_nr = returnNumberFromValue(requestBody.m_nr);
-  messageDocument.conv_id = returnNumberFromValue(requestBody.conv_id);
+  messageDocument.key = returnNumberFromValue(requestBody.key);
   return messageDocument;
 }
 

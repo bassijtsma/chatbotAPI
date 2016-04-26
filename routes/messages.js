@@ -22,24 +22,24 @@ module.exports = function(router) {
       }
     });
   })
+
+  router.route('/:conv_id/:key')
+  .delete(function(req, res, next) {
+    requestBody = {'conv_id' : req.params.conv_id, 'key' : req.params.key}
+    message.deleteMessage(requestBody, function(err, deleteResult) {
+      if (err) {
+        res.send({'results' : 'error', 'error' : err});
+      } else {
+        res.send({'results' : deleteResult});
+      }
+    });
+  })
   .put(function(req, res, next) {
     message.updateMessage(req.body, function(err, updateResult) {
       if (err) {
         res.send({'results' : 'error', 'error' : err});
       } else {
         res.send({'results' : updateResult});
-      }
-    });
-  });
-
-  router.route('/:conv_id/:m_nr')
-  .delete(function(req, res, next) {
-    requestBody = {'conv_id' : req.params.conv_id, 'm_nr' : req.params.m_nr}
-    message.deleteMessage(requestBody, function(err, deleteResult) {
-      if (err) {
-        res.send({'results' : 'error', 'error' : err});
-      } else {
-        res.send({'results' : deleteResult});
       }
     });
   });
