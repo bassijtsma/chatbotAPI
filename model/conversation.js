@@ -45,6 +45,7 @@ conversation.updateConversation = function(requestBody, callback) {
   var conversationObject;
 
   if (isValidRequest(requestBody)) {
+    console.log('valid req)')
     conversationObject = buildConversationObject(requestBody);
     database.db.collection('conversations').updateOne({
       "conv_id" : conversationObject.conv_id
@@ -52,6 +53,7 @@ conversation.updateConversation = function(requestBody, callback) {
       $set : { "conv_name" : conversationObject.conv_name}
     }, function(err, results) {
       if (err) {
+        console.log('error:', err);
         callback(err, null);
       } else {
         if (results.result.n > 0 ) {
@@ -142,7 +144,7 @@ function buildConversationObject(requestBody) {
 function isValidConv_name(conv_name) {
   try {
     var escapedText = validator.escape(conv_name);
-    return validator.isLength(escapedText, { min: 1, max : undefined});
+    return validator.isLength(escapedText, { min: 0, max : undefined});
   } catch (err) {
     console.log('error validating text:', conv_name);
     return false;
