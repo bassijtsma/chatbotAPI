@@ -25,7 +25,7 @@ var startServer = function(callback) {
   routes(app);
 
   app.listen(PORTNR);
-  console.log('listening on port 3000; http://bastronaut.com:3000/')
+  console.log('listening on port ', PORTNR, 'http://localhost:',PORTNR, '  http://bastronaut.com:', PORTNR,'/')
 
   if (callback) {
     return callback();
