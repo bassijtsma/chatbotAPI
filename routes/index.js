@@ -9,6 +9,6 @@ module.exports = function(app) {
     // initialize all routes with router arg to add functionality to the router.
     require('./' + routeName)(router);
     // Add router to the corresponding  route
-    app.use('/' + routeName, router);
+    app.use('/chatbotAPI/' + routeName, router);
   });
 };
