@@ -7,30 +7,25 @@
 
 var inputfilter = {
   escapeIllegal(inputstring) {
-      var escapedString = escapeDollarSignTest(inputstring);
-      // var escapedString = escapeBrackets(escapedString);
-      return escapedString
+      var escapedString = escapeTextPattern(inputstring, '$', '&#36;');
+      var escapedString = escapeTextPattern(escapedString, '<', '&#60');
+      var escapedString = escapeTextPattern(escapedString, '>', '&#62;');
+      var escapedString = escapeTextPattern(escapedString, '\'', '&#39;');
+      var escapedString = escapeTextPattern(escapedString, '\"', '&#34;');
+      var escapedString = escapeTextPattern(escapedString, '\\', '&#92;');
+      var escapedString = escapeTextPattern(escapedString, '\/', '&#47;');
+      var escapedString = escapeTextPattern(escapedString, '[', '&#91;');
+      return escapedString;
   }
 }
 
-// function does not remove dollar sign as it seems it would be common in
-// use cases related to prices. Instead, if removes the colon to prevent
-// injection with commands such as: "password": {"$gt": ""}. probably rename fn
-function escapeDollarSign(inputstring) {
-  if (inputstring.indexOf('$') !== -1 & inputstring.indexOf(':') !== -1 ) {
-    return inputstring.replace(':', '');
-  }
-}
 
-function escapeDollarSignTest(inputstring) {
-  if (inputstring.indexOf('$') !== -1 ) {
-    return inputstring.replace('$', '&#36;');
+function escapeTextPattern(input, pattern, replacewith) {
+  var escapedString = input;
+  while (escapedString.indexOf(pattern) !== -1) {
+    escapedString = escapedString.replace(pattern, replacewith);
   }
-}
-
-function escapedString(inputstring) {
-  // TODO
-  return inputstring;
+  return escapedString
 }
 
 

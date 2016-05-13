@@ -24,6 +24,7 @@ message.createMessage = function(requestBody, callback) {
 
   if (isValidCreateRequest(requestBody)) {
       messageObject = buildMessageObject(requestBody);
+      console.log('inserting text:', messageObject.qtext, messageObject.rtext)
       database.db.collection('messages').insertOne(messageObject, function (err, result) {
         if (err) {
           callback(err, null);
