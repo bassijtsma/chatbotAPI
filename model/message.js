@@ -1,6 +1,6 @@
 var database = require('../initializers/database');
 var validator = require('validator');
-var xssFilters = require('xss-filters');
+var inputfilter = require('./inputfilter');
 
 
 var message = function() {};
@@ -164,7 +164,8 @@ function isValidM_nr(m_nr) {
 
 function isValidText(messageText) {
   try {
-    var escapedText = validator.escape(messageText);
+    var escapedText = inputfilter.escapeIllegal(messageText);
+    console.log('escapedtext:', escapedText);
     return validator.isLength(escapedText, { min: 0, max : undefined});
   } catch (err) {
     console.log('error validating text:', messageText, err);
@@ -225,8 +226,8 @@ function buildMessageObject(requestBody) {
   messageDocument.m_nr = returnNumberFromValue(requestBody.m_nr);
   messageDocument.conv_id = returnNumberFromValue(requestBody.conv_id);
   messageDocument.is_alternative = returnBoolFromValue(requestBody.is_alternative);
-  messageDocument.qtext = validator.escape(requestBody.qtext);
-  messageDocument.rtext = validator.escape(requestBody.rtext);
+  messageDocument.rtext = inputfilter.escapeIllegal(requestBody.rtext);
+  messageDocument.qtext = inputfilter.escapeIllegal(requestBody.qtext);
   messageDocument.key = requestBody.key;
   return messageDocument;
 }
