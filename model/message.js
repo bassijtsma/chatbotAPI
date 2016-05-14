@@ -150,7 +150,7 @@ function isValidM_nr(m_nr) {
     if (typeof(m_nr) === 'number') {
       return (m_nr > 0);
     } else if (typeof(m_nr) === 'string') {
-      var escapedM_nr = validator.escape(m_nr);
+      var escapedM_nr = inputfilter.escape(m_nr);
       return validator.isInt(escapedM_nr, { min: 0});
     } else {
       console.log('m_nr not a string or a number');
@@ -180,7 +180,7 @@ function isValidConv_id(conv_id) {
     if (typeof(conv_id) === 'number') {
       return (conv_id > 0);
     } else if (typeof(conv_id) === 'string') {
-      var escapedConv_id = validator.escape(conv_id);
+      var escapedConv_id = inputfilter.escape(conv_id);
       return validator.isInt(escapedConv_id, { min: 0});
     } else {
       console.log('conv_id not a string');
@@ -196,7 +196,7 @@ function isValidKey(key) {
     if (typeof(key) === 'number') {
       return (key > 0);
     } else if (typeof(key) === 'string') {
-      var escapedKey = validator.escape(key);
+      var escapedKey = inputfilter.escape(key);
       return validator.isInt(escapedKey, { min: 0});
     } else {
       console.log('key not a string or a number');
@@ -245,7 +245,7 @@ function buildDeleteMessageObject(requestBody) {
 // The 2 functions below wrap the parsing and validation of this value.
 function returnNumberFromValue(value) {
   if (typeof(value) === 'string') {
-    return parseInt(validator.escape(value));
+    return parseInt(inputfilter.escape(value));
   } else {
     return value;
   }

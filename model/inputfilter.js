@@ -1,5 +1,6 @@
-// Quick and dirty module to protect against mongodb injection attacks.
-// Filters out: $, [, ], 'mapReduce:', 'group:'
+// Quick and dirty module to protect against mongodb injection attacks,
+// and feeble attempt at prevent xss.
+// Filters out: $, [, <, ... etc and rewrites to html codes
 // For examples on injecting mongoDB
 // http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html
 // https://docs.mongodb.com/manual/faq/fundamentals/#javascript
@@ -15,6 +16,7 @@ var inputfilter = {
       var escapedString = escapeTextPattern(escapedString, '\\', '&#92;');
       var escapedString = escapeTextPattern(escapedString, '\/', '&#47;');
       var escapedString = escapeTextPattern(escapedString, '[', '&#91;');
+      var escapedString = escapeTextPattern(escapedString, ':', '&#58;');
       return escapedString;
   }
 }
