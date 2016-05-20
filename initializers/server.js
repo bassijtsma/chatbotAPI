@@ -1,9 +1,10 @@
-var PORTNR = 3000;
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var app;
 var routes = require('../routes/index.js');
+var config = require('./config');
+
+var PORTNR = config.port;
 
 var startServer = function(callback) {
 

@@ -13,14 +13,14 @@ Console logging is all over the place for debugging purposes. No flag to turn de
 
 The API exposes the following endpoints:
 
-# /messages/
+**/messages/**
 to GET and POST messages
 
-#/:conv_id/:messagekey
+**/:conv_id/:messagekey**
 To PUT and DELETE messages
 
-# /conversations/
+**/conversations/**
 to GET and POST conversations
 
-# /:conv_id
+**/:conv_id**
 to PUT and DELETE conversations
