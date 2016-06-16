@@ -2,6 +2,19 @@ var database = require('../initializers/database');
 var validator = require('validator');
 var inputfilter = require('./inputfilter');
 
+/*
+Messages will be stored in mongodb in the following format:
+graphmessages = [
+      {"m_nr": 1, "qtext": "Hi", "rtext": "Hi! :) How are you?",  "conv_id": 1, "key": 123, "parent": 0, "children": [124, 126]},
+      {"m_nr": 2, "qtext": "Good!", "rtext": "That's great to hear!", "conv_id": 1, "key": 124, "parent": 123, "children": [125]},
+      {"m_nr": 3, "qtext": "Thanks!", "rtext": "No Problem!", "conv_id": 1, "key": 125, "parent": 124, "children": []}
+    ]
+    m_nr: will be refactored out with new frontend, but keep in to have old frontend functioning for now
+    rtext: string
+    qtext: string
+    conv_id: number , must be > 0
+    key: number, randomly generated.
+*/
 
 var message = function() {};
 
@@ -60,6 +73,38 @@ message.deleteMessage = function(requestBody, callback) {
     }
 };
 
+/* TODO: uncomment this function and remove other fn as soon as frontend
+// has been refactored successfully
+message.updateMessage = function(requestBody, callback) {
+  var messageObject;
+
+  if (isValidUpdateRequest(requestBody)) {
+    messageObject = buildMessageObject(requestBody);
+    database.db.collection('messages').updateOne({
+      "key" : messageObject.key
+    }, {
+      $set : {
+        "qtext": messageObject.qtext,
+        "rtext": messageObject.rtext,
+        "parent": messageObject.parent,
+        "children": messageObject.children }
+    }, function(err, results) {
+      if (err) {
+        callback(err, null);
+      } else {
+        if (results.result.n > 0 ) {
+          callback(null, 'Message updated successfully');
+        } else {
+          callback('No document was found to update', null);
+        }
+      }
+    });
+  } else {
+      callback('Not a validRequest', null);
+    }
+};
+*/
+
 message.updateMessage = function(requestBody, callback) {
   var messageObject;
 
@@ -103,6 +148,26 @@ message.deleteMessagesForConv_idPromise = function(conv_id)  {
   })
 }
 
+/* TODO: uncomment this function and remove other fn as soon as frontend
+// has been refactored successfully
+function isValidCreateRequest(requestBody) {
+  if (!isValidM_nr(requestBody.m_nr)) {
+    console.log('m_nr not valid'); return false;}
+  else if (!isValidKey(requestBody.key)) {
+    console.log('ley not valid'); return false;}
+  else if (!isValidText(requestBody.qtext)) {
+    console.log('question text not valid'); return false;}
+  else if (!isValidText(requestBody.rtext)) {
+    console.log('response text not valid'); return false;}
+  else if (!isValidConv_id(requestBody.conv_id)) {
+    console.log('conv_id not valid'); return false;}
+  else if (!isValidParent(requestBody.parent)) {
+    console.log('is_alternative not valid'); return false;}
+  else if (!isValidChildren(requestBody.children)) {
+    console.log('children property is not valid'); return false;
+  } else { console.log('valid request!'); return true;}
+}
+*/
 
 function isValidCreateRequest(requestBody) {
   if (!isValidM_nr(requestBody.m_nr)) {
@@ -221,6 +286,17 @@ function isValidIs_Alternative(is_alternative) {
     }
 }
 
+// to check if valid parent:
+// should check for circular dependencies?
+// minimum: check that the parent does not occur in the nodes children
+// should it recreate the entire tree to check? 
+function isValidParent(parent) {
+
+}
+
+function isValidChildren(children) {
+
+}
 
 function buildMessageObject(requestBody) {
   messageDocument = {};

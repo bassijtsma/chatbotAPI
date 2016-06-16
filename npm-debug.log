@@ -1,0 +1,516 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install' ]
+2 info using npm@2.15.1
+3 info using node@v4.4.4
+4 verbose readDependencies loading dependencies from /media/sf_sharedvm/chatbotAPI/package.json
+5 verbose install where, deps [ '/media/sf_sharedvm/chatbotAPI',
+5 verbose install   [ 'body-parser',
+5 verbose install     'express',
+5 verbose install     'mongodb',
+5 verbose install     'require-dir',
+5 verbose install     'validator',
+5 verbose install     'xss-filters' ] ]
+6 verbose install where, peers [ '/media/sf_sharedvm/chatbotAPI', [] ]
+7 verbose installManyTop reading for lifecycle /media/sf_sharedvm/chatbotAPI/package.json
+8 info preinstall chatbotapi@1.0.0
+9 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/accepts/package.json
+10 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/array-flatten/package.json
+11 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/body-parser/package.json
+12 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/bson/package.json
+13 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/bytes/package.json
+14 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/content-disposition/package.json
+15 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/content-type/package.json
+16 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/cookie/package.json
+17 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/cookie-signature/package.json
+18 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/core-util-is/package.json
+19 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/debug/package.json
+20 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/depd/package.json
+21 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/destroy/package.json
+22 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/ee-first/package.json
+23 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/es6-promise/package.json
+24 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/escape-html/package.json
+25 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/etag/package.json
+26 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/express/package.json
+27 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/finalhandler/package.json
+28 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/forwarded/package.json
+29 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/fresh/package.json
+30 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/http-errors/package.json
+31 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/iconv-lite/package.json
+32 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/inherits/package.json
+33 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/ipaddr.js/package.json
+34 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/isarray/package.json
+35 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/media-typer/package.json
+36 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/merge-descriptors/package.json
+37 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/methods/package.json
+38 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/mime/package.json
+39 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/mime-db/package.json
+40 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/mime-types/package.json
+41 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/mongodb/package.json
+42 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/mongodb-core/package.json
+43 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/ms/package.json
+44 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/negotiator/package.json
+45 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/on-finished/package.json
+46 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/parseurl/package.json
+47 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/path-to-regexp/package.json
+48 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/proxy-addr/package.json
+49 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/qs/package.json
+50 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/range-parser/package.json
+51 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/raw-body/package.json
+52 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/readable-stream/package.json
+53 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/require-dir/package.json
+54 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/require_optional/package.json
+55 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/resolve-from/package.json
+56 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/semver/package.json
+57 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/send/package.json
+58 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/serve-static/package.json
+59 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/statuses/package.json
+60 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/string_decoder/package.json
+61 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/type-is/package.json
+62 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/unpipe/package.json
+63 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/utils-merge/package.json
+64 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/validator/package.json
+65 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/vary/package.json
+66 verbose installManyTop reading scoped package data from /media/sf_sharedvm/chatbotAPI/node_modules/xss-filters/package.json
+67 info package.json mime@1.3.4 No license field.
+68 info package.json ms@0.7.1 No license field.
+69 info package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
+70 info package.json utils-merge@1.0.0 No license field.
+71 info package.json xss-filters@1.2.6 No license field.
+72 verbose readDependencies loading dependencies from /media/sf_sharedvm/chatbotAPI/package.json
+73 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/accepts/package.json
+74 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/array-flatten/package.json
+75 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/body-parser/package.json
+76 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/bson/package.json
+77 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/bytes/package.json
+78 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/content-disposition/package.json
+79 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/content-type/package.json
+80 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/cookie/package.json
+81 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/cookie-signature/package.json
+82 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/core-util-is/package.json
+83 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/debug/package.json
+84 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/depd/package.json
+85 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/destroy/package.json
+86 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/ee-first/package.json
+87 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/es6-promise/package.json
+88 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/escape-html/package.json
+89 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/etag/package.json
+90 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/express/package.json
+91 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/finalhandler/package.json
+92 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/forwarded/package.json
+93 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/fresh/package.json
+94 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/http-errors/package.json
+95 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/iconv-lite/package.json
+96 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/inherits/package.json
+97 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/ipaddr.js/package.json
+98 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/isarray/package.json
+99 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/media-typer/package.json
+100 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/merge-descriptors/package.json
+101 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/methods/package.json
+102 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/mime/package.json
+103 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/mime-db/package.json
+104 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/mime-types/package.json
+105 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/mongodb/package.json
+106 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/mongodb-core/package.json
+107 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/ms/package.json
+108 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/negotiator/package.json
+109 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/on-finished/package.json
+110 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/parseurl/package.json
+111 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/path-to-regexp/package.json
+112 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/proxy-addr/package.json
+113 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/qs/package.json
+114 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/range-parser/package.json
+115 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/raw-body/package.json
+116 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/readable-stream/package.json
+117 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/require-dir/package.json
+118 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/require_optional/package.json
+119 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/resolve-from/package.json
+120 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/semver/package.json
+121 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/send/package.json
+122 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/serve-static/package.json
+123 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/statuses/package.json
+124 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/string_decoder/package.json
+125 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/type-is/package.json
+126 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/unpipe/package.json
+127 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/utils-merge/package.json
+128 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/validator/package.json
+129 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/vary/package.json
+130 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/xss-filters/package.json
+131 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/.bin/mime/package.json
+132 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/.bin/mime.cmd/package.json
+133 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/.bin/semver/package.json
+134 verbose targetResolver reading package data from /media/sf_sharedvm/chatbotAPI/node_modules/.bin/semver.cmd/package.json
+135 verbose already installed skipping xss-filters@^1.2.6 /media/sf_sharedvm/chatbotAPI
+136 verbose already installed skipping body-parser@^1.15.0 /media/sf_sharedvm/chatbotAPI
+137 verbose already installed skipping mongodb@^2.1.7 /media/sf_sharedvm/chatbotAPI
+138 verbose already installed skipping express@^4.13.4 /media/sf_sharedvm/chatbotAPI
+139 verbose already installed skipping require-dir@^0.3.0 /media/sf_sharedvm/chatbotAPI
+140 verbose already installed skipping validator@^5.1.0 /media/sf_sharedvm/chatbotAPI
+141 silly install resolved []
+142 info build /media/sf_sharedvm/chatbotAPI
+143 info linkStuff chatbotapi@1.0.0
+144 silly linkStuff chatbotapi@1.0.0 has /media/sf_sharedvm as its parent node_modules
+145 verbose linkBins chatbotapi@1.0.0
+146 verbose linkMans chatbotapi@1.0.0
+147 verbose rebuildBundles chatbotapi@1.0.0
+148 verbose rebuildBundles [ '.bin',
+148 verbose rebuildBundles   'accepts',
+148 verbose rebuildBundles   'array-flatten',
+148 verbose rebuildBundles   'body-parser',
+148 verbose rebuildBundles   'bson',
+148 verbose rebuildBundles   'bytes',
+148 verbose rebuildBundles   'content-disposition',
+148 verbose rebuildBundles   'content-type',
+148 verbose rebuildBundles   'cookie',
+148 verbose rebuildBundles   'cookie-signature',
+148 verbose rebuildBundles   'core-util-is',
+148 verbose rebuildBundles   'debug',
+148 verbose rebuildBundles   'depd',
+148 verbose rebuildBundles   'destroy',
+148 verbose rebuildBundles   'ee-first',
+148 verbose rebuildBundles   'es6-promise',
+148 verbose rebuildBundles   'escape-html',
+148 verbose rebuildBundles   'etag',
+148 verbose rebuildBundles   'express',
+148 verbose rebuildBundles   'finalhandler',
+148 verbose rebuildBundles   'forwarded',
+148 verbose rebuildBundles   'fresh',
+148 verbose rebuildBundles   'http-errors',
+148 verbose rebuildBundles   'iconv-lite',
+148 verbose rebuildBundles   'inherits',
+148 verbose rebuildBundles   'ipaddr.js',
+148 verbose rebuildBundles   'isarray',
+148 verbose rebuildBundles   'media-typer',
+148 verbose rebuildBundles   'merge-descriptors',
+148 verbose rebuildBundles   'methods',
+148 verbose rebuildBundles   'mime',
+148 verbose rebuildBundles   'mime-db',
+148 verbose rebuildBundles   'mime-types',
+148 verbose rebuildBundles   'mongodb',
+148 verbose rebuildBundles   'mongodb-core',
+148 verbose rebuildBundles   'ms',
+148 verbose rebuildBundles   'negotiator',
+148 verbose rebuildBundles   'on-finished',
+148 verbose rebuildBundles   'parseurl',
+148 verbose rebuildBundles   'path-to-regexp',
+148 verbose rebuildBundles   'proxy-addr',
+148 verbose rebuildBundles   'qs',
+148 verbose rebuildBundles   'range-parser',
+148 verbose rebuildBundles   'raw-body',
+148 verbose rebuildBundles   'readable-stream',
+148 verbose rebuildBundles   'require-dir',
+148 verbose rebuildBundles   'require_optional',
+148 verbose rebuildBundles   'resolve-from',
+148 verbose rebuildBundles   'semver',
+148 verbose rebuildBundles   'send',
+148 verbose rebuildBundles   'serve-static',
+148 verbose rebuildBundles   'statuses',
+148 verbose rebuildBundles   'string_decoder',
+148 verbose rebuildBundles   'type-is',
+148 verbose rebuildBundles   'unpipe',
+148 verbose rebuildBundles   'utils-merge',
+148 verbose rebuildBundles   'validator',
+148 verbose rebuildBundles   'vary',
+148 verbose rebuildBundles   'xss-filters' ]
+149 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/accepts
+150 info build /media/sf_sharedvm/chatbotAPI/node_modules/accepts
+151 info preinstall accepts@1.2.13
+152 info linkStuff accepts@1.2.13
+153 silly linkStuff accepts@1.2.13 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+154 verbose linkBins accepts@1.2.13
+155 verbose linkMans accepts@1.2.13
+156 verbose rebuildBundles accepts@1.2.13
+157 info install accepts@1.2.13
+158 info postinstall accepts@1.2.13
+159 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/array-flatten
+160 info build /media/sf_sharedvm/chatbotAPI/node_modules/array-flatten
+161 info preinstall array-flatten@1.1.1
+162 info linkStuff array-flatten@1.1.1
+163 silly linkStuff array-flatten@1.1.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+164 verbose linkBins array-flatten@1.1.1
+165 verbose linkMans array-flatten@1.1.1
+166 verbose rebuildBundles array-flatten@1.1.1
+167 info install array-flatten@1.1.1
+168 info postinstall array-flatten@1.1.1
+169 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/bson
+170 info build /media/sf_sharedvm/chatbotAPI/node_modules/bson
+171 info preinstall bson@0.4.21
+172 info linkStuff bson@0.4.21
+173 silly linkStuff bson@0.4.21 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+174 verbose linkBins bson@0.4.21
+175 verbose linkMans bson@0.4.21
+176 verbose rebuildBundles bson@0.4.21
+177 info install bson@0.4.21
+178 info postinstall bson@0.4.21
+179 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/bytes
+180 info build /media/sf_sharedvm/chatbotAPI/node_modules/bytes
+181 info preinstall bytes@2.2.0
+182 info linkStuff bytes@2.2.0
+183 silly linkStuff bytes@2.2.0 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+184 verbose linkBins bytes@2.2.0
+185 verbose linkMans bytes@2.2.0
+186 verbose rebuildBundles bytes@2.2.0
+187 info install bytes@2.2.0
+188 info postinstall bytes@2.2.0
+189 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/content-disposition
+190 info build /media/sf_sharedvm/chatbotAPI/node_modules/content-disposition
+191 info preinstall content-disposition@0.5.1
+192 info linkStuff content-disposition@0.5.1
+193 silly linkStuff content-disposition@0.5.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+194 verbose linkBins content-disposition@0.5.1
+195 verbose linkMans content-disposition@0.5.1
+196 verbose rebuildBundles content-disposition@0.5.1
+197 info install content-disposition@0.5.1
+198 info postinstall content-disposition@0.5.1
+199 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/content-type
+200 info build /media/sf_sharedvm/chatbotAPI/node_modules/content-type
+201 info preinstall content-type@1.0.1
+202 info linkStuff content-type@1.0.1
+203 silly linkStuff content-type@1.0.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+204 verbose linkBins content-type@1.0.1
+205 verbose linkMans content-type@1.0.1
+206 verbose rebuildBundles content-type@1.0.1
+207 info install content-type@1.0.1
+208 info postinstall content-type@1.0.1
+209 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/cookie
+210 info build /media/sf_sharedvm/chatbotAPI/node_modules/cookie
+211 info preinstall cookie@0.1.5
+212 info linkStuff cookie@0.1.5
+213 silly linkStuff cookie@0.1.5 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+214 verbose linkBins cookie@0.1.5
+215 verbose linkMans cookie@0.1.5
+216 verbose rebuildBundles cookie@0.1.5
+217 info install cookie@0.1.5
+218 info postinstall cookie@0.1.5
+219 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/cookie-signature
+220 info build /media/sf_sharedvm/chatbotAPI/node_modules/cookie-signature
+221 info preinstall cookie-signature@1.0.6
+222 info linkStuff cookie-signature@1.0.6
+223 silly linkStuff cookie-signature@1.0.6 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+224 verbose linkBins cookie-signature@1.0.6
+225 verbose linkMans cookie-signature@1.0.6
+226 verbose rebuildBundles cookie-signature@1.0.6
+227 info install cookie-signature@1.0.6
+228 info postinstall cookie-signature@1.0.6
+229 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/core-util-is
+230 info build /media/sf_sharedvm/chatbotAPI/node_modules/core-util-is
+231 info preinstall core-util-is@1.0.2
+232 info linkStuff core-util-is@1.0.2
+233 silly linkStuff core-util-is@1.0.2 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+234 verbose linkBins core-util-is@1.0.2
+235 verbose linkMans core-util-is@1.0.2
+236 verbose rebuildBundles core-util-is@1.0.2
+237 info install core-util-is@1.0.2
+238 info postinstall core-util-is@1.0.2
+239 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/debug
+240 info build /media/sf_sharedvm/chatbotAPI/node_modules/debug
+241 info preinstall debug@2.2.0
+242 info linkStuff debug@2.2.0
+243 silly linkStuff debug@2.2.0 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+244 verbose linkBins debug@2.2.0
+245 verbose linkMans debug@2.2.0
+246 verbose rebuildBundles debug@2.2.0
+247 info install debug@2.2.0
+248 info postinstall debug@2.2.0
+249 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/depd
+250 info build /media/sf_sharedvm/chatbotAPI/node_modules/depd
+251 info preinstall depd@1.1.0
+252 info linkStuff depd@1.1.0
+253 silly linkStuff depd@1.1.0 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+254 verbose linkBins depd@1.1.0
+255 verbose linkMans depd@1.1.0
+256 verbose rebuildBundles depd@1.1.0
+257 info install depd@1.1.0
+258 info postinstall depd@1.1.0
+259 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/destroy
+260 info build /media/sf_sharedvm/chatbotAPI/node_modules/destroy
+261 info preinstall destroy@1.0.4
+262 info linkStuff destroy@1.0.4
+263 silly linkStuff destroy@1.0.4 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+264 verbose linkBins destroy@1.0.4
+265 verbose linkMans destroy@1.0.4
+266 verbose rebuildBundles destroy@1.0.4
+267 info install destroy@1.0.4
+268 info postinstall destroy@1.0.4
+269 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/ee-first
+270 info build /media/sf_sharedvm/chatbotAPI/node_modules/ee-first
+271 info preinstall ee-first@1.1.1
+272 info linkStuff ee-first@1.1.1
+273 silly linkStuff ee-first@1.1.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+274 verbose linkBins ee-first@1.1.1
+275 verbose linkMans ee-first@1.1.1
+276 verbose rebuildBundles ee-first@1.1.1
+277 info install ee-first@1.1.1
+278 info postinstall ee-first@1.1.1
+279 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/es6-promise
+280 info build /media/sf_sharedvm/chatbotAPI/node_modules/es6-promise
+281 info preinstall es6-promise@3.0.2
+282 info linkStuff es6-promise@3.0.2
+283 silly linkStuff es6-promise@3.0.2 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+284 verbose linkBins es6-promise@3.0.2
+285 verbose linkMans es6-promise@3.0.2
+286 verbose rebuildBundles es6-promise@3.0.2
+287 info install es6-promise@3.0.2
+288 info postinstall es6-promise@3.0.2
+289 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/escape-html
+290 info build /media/sf_sharedvm/chatbotAPI/node_modules/escape-html
+291 info preinstall escape-html@1.0.3
+292 info linkStuff escape-html@1.0.3
+293 silly linkStuff escape-html@1.0.3 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+294 verbose linkBins escape-html@1.0.3
+295 verbose linkMans escape-html@1.0.3
+296 verbose rebuildBundles escape-html@1.0.3
+297 info install escape-html@1.0.3
+298 info postinstall escape-html@1.0.3
+299 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/etag
+300 info build /media/sf_sharedvm/chatbotAPI/node_modules/etag
+301 info preinstall etag@1.7.0
+302 info linkStuff etag@1.7.0
+303 silly linkStuff etag@1.7.0 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+304 verbose linkBins etag@1.7.0
+305 verbose linkMans etag@1.7.0
+306 verbose rebuildBundles etag@1.7.0
+307 info install etag@1.7.0
+308 info postinstall etag@1.7.0
+309 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/finalhandler
+310 info build /media/sf_sharedvm/chatbotAPI/node_modules/finalhandler
+311 info preinstall finalhandler@0.4.1
+312 info linkStuff finalhandler@0.4.1
+313 silly linkStuff finalhandler@0.4.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+314 verbose linkBins finalhandler@0.4.1
+315 verbose linkMans finalhandler@0.4.1
+316 verbose rebuildBundles finalhandler@0.4.1
+317 info install finalhandler@0.4.1
+318 info postinstall finalhandler@0.4.1
+319 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/forwarded
+320 info build /media/sf_sharedvm/chatbotAPI/node_modules/forwarded
+321 info preinstall forwarded@0.1.0
+322 info linkStuff forwarded@0.1.0
+323 silly linkStuff forwarded@0.1.0 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+324 verbose linkBins forwarded@0.1.0
+325 verbose linkMans forwarded@0.1.0
+326 verbose rebuildBundles forwarded@0.1.0
+327 info install forwarded@0.1.0
+328 info postinstall forwarded@0.1.0
+329 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/fresh
+330 info build /media/sf_sharedvm/chatbotAPI/node_modules/fresh
+331 info preinstall fresh@0.3.0
+332 info linkStuff fresh@0.3.0
+333 silly linkStuff fresh@0.3.0 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+334 verbose linkBins fresh@0.3.0
+335 verbose linkMans fresh@0.3.0
+336 verbose rebuildBundles fresh@0.3.0
+337 info install fresh@0.3.0
+338 info postinstall fresh@0.3.0
+339 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/http-errors
+340 info build /media/sf_sharedvm/chatbotAPI/node_modules/http-errors
+341 info preinstall http-errors@1.3.1
+342 info linkStuff http-errors@1.3.1
+343 silly linkStuff http-errors@1.3.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+344 verbose linkBins http-errors@1.3.1
+345 verbose linkMans http-errors@1.3.1
+346 verbose rebuildBundles http-errors@1.3.1
+347 info install http-errors@1.3.1
+348 info postinstall http-errors@1.3.1
+349 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/iconv-lite
+350 info build /media/sf_sharedvm/chatbotAPI/node_modules/iconv-lite
+351 info preinstall iconv-lite@0.4.13
+352 info linkStuff iconv-lite@0.4.13
+353 silly linkStuff iconv-lite@0.4.13 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+354 verbose linkBins iconv-lite@0.4.13
+355 verbose linkMans iconv-lite@0.4.13
+356 verbose rebuildBundles iconv-lite@0.4.13
+357 info install iconv-lite@0.4.13
+358 info postinstall iconv-lite@0.4.13
+359 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/inherits
+360 info build /media/sf_sharedvm/chatbotAPI/node_modules/inherits
+361 info preinstall inherits@2.0.1
+362 info linkStuff inherits@2.0.1
+363 silly linkStuff inherits@2.0.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+364 verbose linkBins inherits@2.0.1
+365 verbose linkMans inherits@2.0.1
+366 verbose rebuildBundles inherits@2.0.1
+367 info install inherits@2.0.1
+368 info postinstall inherits@2.0.1
+369 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/ipaddr.js
+370 info build /media/sf_sharedvm/chatbotAPI/node_modules/ipaddr.js
+371 info preinstall ipaddr.js@1.0.5
+372 info linkStuff ipaddr.js@1.0.5
+373 silly linkStuff ipaddr.js@1.0.5 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+374 verbose linkBins ipaddr.js@1.0.5
+375 verbose linkMans ipaddr.js@1.0.5
+376 verbose rebuildBundles ipaddr.js@1.0.5
+377 info install ipaddr.js@1.0.5
+378 info postinstall ipaddr.js@1.0.5
+379 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/isarray
+380 info build /media/sf_sharedvm/chatbotAPI/node_modules/isarray
+381 info preinstall isarray@0.0.1
+382 info linkStuff isarray@0.0.1
+383 silly linkStuff isarray@0.0.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+384 verbose linkBins isarray@0.0.1
+385 verbose linkMans isarray@0.0.1
+386 verbose rebuildBundles isarray@0.0.1
+387 info install isarray@0.0.1
+388 info postinstall isarray@0.0.1
+389 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/media-typer
+390 info build /media/sf_sharedvm/chatbotAPI/node_modules/media-typer
+391 info preinstall media-typer@0.3.0
+392 info linkStuff media-typer@0.3.0
+393 silly linkStuff media-typer@0.3.0 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+394 verbose linkBins media-typer@0.3.0
+395 verbose linkMans media-typer@0.3.0
+396 verbose rebuildBundles media-typer@0.3.0
+397 info install media-typer@0.3.0
+398 info postinstall media-typer@0.3.0
+399 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/merge-descriptors
+400 info build /media/sf_sharedvm/chatbotAPI/node_modules/merge-descriptors
+401 info preinstall merge-descriptors@1.0.1
+402 info linkStuff merge-descriptors@1.0.1
+403 silly linkStuff merge-descriptors@1.0.1 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+404 verbose linkBins merge-descriptors@1.0.1
+405 verbose linkMans merge-descriptors@1.0.1
+406 verbose rebuildBundles merge-descriptors@1.0.1
+407 info install merge-descriptors@1.0.1
+408 info postinstall merge-descriptors@1.0.1
+409 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/methods
+410 info build /media/sf_sharedvm/chatbotAPI/node_modules/methods
+411 info preinstall methods@1.1.2
+412 info linkStuff methods@1.1.2
+413 silly linkStuff methods@1.1.2 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+414 verbose linkBins methods@1.1.2
+415 verbose linkMans methods@1.1.2
+416 verbose rebuildBundles methods@1.1.2
+417 info install methods@1.1.2
+418 info postinstall methods@1.1.2
+419 verbose rebuild bundle /media/sf_sharedvm/chatbotAPI/node_modules/mime
+420 info build /media/sf_sharedvm/chatbotAPI/node_modules/mime
+421 info preinstall mime@1.3.4
+422 info linkStuff mime@1.3.4
+423 silly linkStuff mime@1.3.4 has /media/sf_sharedvm/chatbotAPI/node_modules as its parent node_modules
+424 verbose linkBins mime@1.3.4
+425 verbose link bins [ { mime: 'cli.js' },
+425 verbose link bins   '/media/sf_sharedvm/chatbotAPI/node_modules/.bin',
+425 verbose link bins   false ]
+426 verbose linkMans mime@1.3.4
+427 verbose rebuildBundles mime@1.3.4
+428 silly gentlyRm /media/sf_sharedvm/chatbotAPI/node_modules/.bin/mime is being purged
+429 verbose gentlyRm don't care about contents; nuking /media/sf_sharedvm/chatbotAPI/node_modules/.bin/mime
+430 silly vacuum-fs purging /media/sf_sharedvm/chatbotAPI/node_modules/.bin/mime
+431 silly vacuum-fs quitting because other entries in /media/sf_sharedvm/chatbotAPI/node_modules/.bin
+432 verbose stack Error: EROFS: read-only file system, symlink '../mime/cli.js' -> '/media/sf_sharedvm/chatbotAPI/node_modules/.bin/mime'
+432 verbose stack     at Error (native)
+433 verbose cwd /media/sf_sharedvm/chatbotAPI
+434 error Linux 4.2.0-35-generic
+435 error argv "/usr/bin/nodejs" "/usr/bin/npm" "install"
+436 error node v4.4.4
+437 error npm  v2.15.1
+438 error path ../mime/cli.js
+439 error code EROFS
+440 error errno -30
+441 error syscall symlink
+442 error rofs EROFS: read-only file system, symlink '../mime/cli.js' -> '/media/sf_sharedvm/chatbotAPI/node_modules/.bin/mime'
+442 error rofs This is most likely not a problem with npm itself
+442 error rofs and is related to the file system being read-only.
+442 error rofs
+442 error rofs Often virtualized file systems, or other file systems
+442 error rofs that don't support symlinks, give this error.
+443 verbose exit [ -30, true ]
