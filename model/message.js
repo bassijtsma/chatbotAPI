@@ -286,16 +286,32 @@ function isValidIs_Alternative(is_alternative) {
     }
 }
 
-// to check if valid parent:
-// should check for circular dependencies?
-// minimum: check that the parent does not occur in the nodes children
-// should it recreate the entire tree to check? 
-function isValidParent(parent) {
-
+// to check if valid parent, check for circular reference:
+// the parent (a key) should be a number
+// the key should exist
+// the parent should not be one of its chilren
+// it should also not be a child of one of its child nodes
+function isValidParent(requestBody) {
+  try {
+    if (typeof(requestBody.parent) === 'number') {
+      messages = database.db.collection('...').find({})
+      // in callback, do the cirular reference checking
+    }
+    else {
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
 }
 
+// to check if valid children:
+// should check for circular dependencies?
+// minimum: check that the parent does not occur in the nodes children
+// should it recreate the entire tree to check?
 function isValidChildren(children) {
-
+ // much of same situation as isvalidparent applies..
+ // todo
 }
 
 function buildMessageObject(requestBody) {
