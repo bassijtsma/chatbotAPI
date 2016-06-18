@@ -292,10 +292,18 @@ function isValidIs_Alternative(is_alternative) {
 // the parent should not be one of its chilren
 // it should also not be a child of one of its child nodes
 function isValidParent(requestBody) {
+  var messagesobj = {};
   try {
     if (typeof(requestBody.parent) === 'number') {
-      messages = database.db.collection('...').find({})
-      // in callback, do the cirular reference checking
+      var messages = database.db.collection('messages').find({})
+
+      // first create object for easy referencing
+      messages.forEach(function(msg) {
+        messagesobj[msg.key] = msg;
+      })
+
+    return recursiveTestParent(requestBody.key, requestBody.parent, messagesobj);
+
     }
     else {
       return false;
@@ -312,6 +320,23 @@ function isValidParent(requestBody) {
 function isValidChildren(children) {
  // much of same situation as isvalidparent applies..
  // todo
+}
+
+// recursively tests whether the parent node also occurs as a child
+// in which case, the new parent is not valid in the graph
+// does not work yet, probably need sentinel value to break out of
+// recursive function calls..
+function recursiveTestParent(node, parent, messagesobject) {
+  console.log('starting for: ', node, parent, messages[node])
+  var isvalid = true;
+  if (node === parent) {
+    console.log('returning false!!');
+    isvalid = false;
+  } else {
+    for (var i = 0; i < messages[node]['children'].length; i++) {
+      recursiveTestParent(messages[node]['children'][i], parent, messages);
+    }
+  }
 }
 
 function buildMessageObject(requestBody) {
