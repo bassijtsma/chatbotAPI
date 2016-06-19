@@ -295,20 +295,33 @@ function isValidParent(requestBody) {
   var messagesobj = {};
   try {
     if (typeof(requestBody.parent) === 'number') {
-      var messages = database.db.collection('messages').find({})
-
-      // first create object for easy referencing
-      messages.forEach(function(msg) {
-        messagesobj[msg.key] = msg;
+      var isvalid = true;
+      var cursor = database.db.collection('messages').find();
+      cursor.each(function(err, msg) {
+        if (msg != null) {
+          messagesobj[msg.key] = msg;
+        }
       })
+      recursiveTestParent(requestBody.key, requestBody.parent, messagesobj);
 
-    return recursiveTestParent(requestBody.key, requestBody.parent, messagesobj);
-
-    }
-    else {
+      function recursiveTestParent(node, parent, messagesobj) {
+        if (!isvalid || node === parent) {
+          isvalid = false; // nasty sentinel value...
+          return;
+        }
+        else {
+          for (var i = 0; i < messages[node]['children'].length; i++) {
+            rec(messages[node]['children'][i], parent, messages);
+          }
+        }
+      }
+      // if the given input is not a number, fail
+    } else {
       return false;
     }
+    // if the properties are missing on the object or some db call fails
   } catch (err) {
+    console.log('error checking isvalidparent:', err)
     return false;
   }
 }
