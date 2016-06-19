@@ -296,6 +296,7 @@ function isValidParent(requestBody) {
   try {
     if (typeof(requestBody.parent) === 'number') {
       var isvalid = true;
+      // probably race condition? test and maybe do processing in the callback
       var cursor = database.db.collection('messages').find();
       cursor.each(function(err, msg) {
         if (msg != null) {
@@ -303,11 +304,11 @@ function isValidParent(requestBody) {
         }
       })
       recursiveTestParent(requestBody.key, requestBody.parent, messagesobj);
+      return isvalid;
 
       function recursiveTestParent(node, parent, messagesobj) {
         if (!isvalid || node === parent) {
-          isvalid = false; // nasty sentinel value...
-          return;
+          isvalid = false; // set nasty sentinel value...
         }
         else {
           for (var i = 0; i < messages[node]['children'].length; i++) {
@@ -315,42 +316,39 @@ function isValidParent(requestBody) {
           }
         }
       }
-      // if the given input is not a number, fail
     } else {
+      // if the given input is not a number, fail
       return false;
     }
-    // if the properties are missing on the object or some db call fails
   } catch (err) {
+    // if the properties are missing on the object or some db call fails
     console.log('error checking isvalidparent:', err)
     return false;
   }
 }
 
-// to check if valid children:
-// should check for circular dependencies?
-// minimum: check that the parent does not occur in the nodes children
-// should it recreate the entire tree to check?
+// to check if valid children, check for circular dependencies;
+// as a node can only have a single parent in our graph,
+// we must check that it is not a child anywhere else. if it is,
+// the other link must be removed first. not appropriate for this function,
+// should think about architecture
 function isValidChildren(children) {
- // much of same situation as isvalidparent applies..
- // todo
-}
+  var messagesobj = {};
+  try {
+    if (typeof(requestBody.parent) === 'number') {
 
-// recursively tests whether the parent node also occurs as a child
-// in which case, the new parent is not valid in the graph
-// does not work yet, probably need sentinel value to break out of
-// recursive function calls..
-function recursiveTestParent(node, parent, messagesobject) {
-  console.log('starting for: ', node, parent, messages[node])
-  var isvalid = true;
-  if (node === parent) {
-    console.log('returning false!!');
-    isvalid = false;
-  } else {
-    for (var i = 0; i < messages[node]['children'].length; i++) {
-      recursiveTestParent(messages[node]['children'][i], parent, messages);
+
+    } else {
+      // if the given input is not a number, fail
+      return false;
     }
+  } catch (err) {
+    // if the properties are missing on the object or some db call fails
+    console.log('error checking isValidChildren:', err)
+    return false;
   }
 }
+
 
 function buildMessageObject(requestBody) {
   messageDocument = {};
