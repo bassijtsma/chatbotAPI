@@ -292,11 +292,26 @@ function isValidIs_Alternative(is_alternative) {
 // the parent should not be one of its chilren
 // it should also not be a child of one of its child nodes
 function isValidParent(requestBody) {
+
+  function recursiveTestParent(node, parent, messagesobj) {
+    if (!isvalid || node === parent) {
+      isvalid = false; // set nasty sentinel value...
+    }
+    else {
+      for (var i = 0; i < messages[node].children.length; i++) {
+        rec(messages[node].children[i], parent, messages);
+      }
+    }
+  }
+
   var messagesobj = {};
+
   try {
-    if (typeof(requestBody.parent) === 'number') {
+    if (typeof(requestBody.parent) === 'number' && requestBody.parent >= 0) {
       var isvalid = true;
       // probably race condition? test and maybe do processing in the callback
+      // should also abstract away into a promise fn coz this is exactly reused
+      // in isvalidchildren
       var cursor = database.db.collection('messages').find();
       cursor.each(function(err, msg) {
         if (msg !== null) {
@@ -305,17 +320,6 @@ function isValidParent(requestBody) {
       });
       recursiveTestParent(requestBody.key, requestBody.parent, messagesobj);
       return isvalid;
-
-      function recursiveTestParent(node, parent, messagesobj) {
-        if (!isvalid || node === parent) {
-          isvalid = false; // set nasty sentinel value...
-        }
-        else {
-          for (var i = 0; i < messages[node].children.length; i++) {
-            rec(messages[node].children[i], parent, messages);
-          }
-        }
-      }
     } else {
       // if the given input is not a number, fail
       return false;
@@ -343,8 +347,13 @@ function isValidChildren(requestBody) {
           messagesobj[msg.key] = msg;
         }
       });
-      // TODO
-
+      requestBody.children.forEach(function(child) {
+        if (typeof(child) === 'number' && child >= 0) {
+          // TODO
+        } else {
+          return false;
+        }
+      })
     } else {
       // if the given input is not a number, fail
       return false;
@@ -368,6 +377,18 @@ function buildMessageObject(requestBody) {
   return messageDocument;
 }
 
+// TODO uncomment when switch to graph data structure
+// function buildMessageObject(requestBody) {
+//   messageDocument = {};
+//   messageDocument.m_nr = returnNumberFromValue(requestBody.m_nr);
+//   messageDocument.conv_id = returnNumberFromValue(requestBody.conv_id);
+//   messageDocument.children = requestBody.children;
+//   messageDocument.parent = requestBody.parent;
+//   messageDocument.rtext = inputfilter.escapeIllegal(requestBody.rtext);
+//   messageDocument.qtext = inputfilter.escapeIllegal(requestBody.qtext);
+//   messageDocument.key = requestBody.key;
+//   return messageDocument;
+// }
 
 function buildDeleteMessageObject(requestBody) {
   messageDocument = {};
@@ -397,6 +418,7 @@ function returnBoolFromValue(value) {
     return value;
   }
 }
+
 
 
 module.exports = message;

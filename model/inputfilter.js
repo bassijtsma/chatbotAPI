@@ -9,17 +9,18 @@
 var inputfilter = {
   escapeIllegal(inputstring) {
       var escapedString = escapeTextPattern(inputstring, '$', '&#36;');
-      var escapedString = escapeTextPattern(escapedString, '<', '&#60');
-      var escapedString = escapeTextPattern(escapedString, '>', '&#62;');
-      var escapedString = escapeTextPattern(escapedString, '\'', '&#39;');
-      var escapedString = escapeTextPattern(escapedString, '\"', '&#34;');
-      var escapedString = escapeTextPattern(escapedString, '\\', '&#92;');
-      var escapedString = escapeTextPattern(escapedString, '\/', '&#47;');
-      var escapedString = escapeTextPattern(escapedString, '[', '&#91;');
-      var escapedString = escapeTextPattern(escapedString, ':', '&#58;');
+      escapedString = escapeTextPattern(escapedString, '<', '&#60');
+      escapedString = escapeTextPattern(escapedString, '>', '&#62;');
+      escapedString = escapeTextPattern(escapedString, '\'', '&#39;');
+      escapedString = escapeTextPattern(escapedString, '\"', '&#34;');
+      escapedString = escapeTextPattern(escapedString, '\\', '&#92;');
+      escapedString = escapeTextPattern(escapedString, '\/', '&#47;');
+      escapedString = escapeTextPattern(escapedString, '[', '&#91;');
+      escapedString = escapeTextPattern(escapedString, ':', '&#58;');
       return escapedString;
   }
-}
+};
+
 
 
 function escapeTextPattern(input, pattern, replacewith) {
@@ -27,7 +28,7 @@ function escapeTextPattern(input, pattern, replacewith) {
   while (escapedString.indexOf(pattern) !== -1) {
     escapedString = escapedString.replace(pattern, replacewith);
   }
-  return escapedString
+  return escapedString;
 }
 
 
