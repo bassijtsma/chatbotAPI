@@ -299,10 +299,10 @@ function isValidParent(requestBody) {
       // probably race condition? test and maybe do processing in the callback
       var cursor = database.db.collection('messages').find();
       cursor.each(function(err, msg) {
-        if (msg != null) {
+        if (msg !== null) {
           messagesobj[msg.key] = msg;
         }
-      })
+      });
       recursiveTestParent(requestBody.key, requestBody.parent, messagesobj);
       return isvalid;
 
@@ -311,8 +311,8 @@ function isValidParent(requestBody) {
           isvalid = false; // set nasty sentinel value...
         }
         else {
-          for (var i = 0; i < messages[node]['children'].length; i++) {
-            rec(messages[node]['children'][i], parent, messages);
+          for (var i = 0; i < messages[node].children.length; i++) {
+            rec(messages[node].children[i], parent, messages);
           }
         }
       }
@@ -322,7 +322,7 @@ function isValidParent(requestBody) {
     }
   } catch (err) {
     // if the properties are missing on the object or some db call fails
-    console.log('error checking isvalidparent:', err)
+    console.log('error checking isvalidparent:', err);
     return false;
   }
 }
@@ -332,11 +332,18 @@ function isValidParent(requestBody) {
 // we must check that it is not a child anywhere else. if it is,
 // the other link must be removed first. not appropriate for this function,
 // should think about architecture
-function isValidChildren(children) {
+function isValidChildren(requestBody) {
   var messagesobj = {};
   try {
     if (typeof(requestBody.parent) === 'number') {
-
+      var isvalid = true;
+      var cursor = database.db.collection('messages').find();
+      cursor.each(function(msg) {
+        if (msg !== null) {
+          messagesobj[msg.key] = msg;
+        }
+      });
+      // TODO
 
     } else {
       // if the given input is not a number, fail
@@ -344,7 +351,7 @@ function isValidChildren(children) {
     }
   } catch (err) {
     // if the properties are missing on the object or some db call fails
-    console.log('error checking isValidChildren:', err)
+    console.log('error checking isValidChildren:', err);
     return false;
   }
 }
