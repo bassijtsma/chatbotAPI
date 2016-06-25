@@ -162,7 +162,7 @@ function isValidCreateRequest(requestBody) {
   else if (!isValidConv_id(requestBody.conv_id)) {
     console.log('conv_id not valid'); return false;}
   else if (!isValidParent(requestBody.parent)) {
-    console.log('is_alternative not valid'); return false;}
+    console.log('parent property is not valid'); return false;}
   else if (!isValidChildren(requestBody.children)) {
     console.log('children property is not valid'); return false;
   } else { console.log('valid request!'); return true;}
@@ -193,6 +193,27 @@ function isValidDeleteRequest(requestBody) {
 }
 
 
+// TODO: can be removed after refactor
+function isValidUpdateRequest(requestBody) {
+  if (!isValidM_nr(requestBody.m_nr)) {
+    console.log('m_nr not valid'); return false;}
+  else if (!isValidKey(requestBody.key)) {
+    console.log('key not valid'); return false;}
+  else if (!isValidText(requestBody.qtext)) {
+    console.log('question text not valid'); return false;}
+  else if (!isValidText(requestBody.rtext)) {
+    console.log('response text not valid'); return false;}
+  else if (!isValidConv_id(requestBody.conv_id)) {
+    console.log('conv_id not valid'); return false;}
+  else if (!isValidParent(requestBody.parent)) {
+    console.log('parent property not valid'); return false;}
+  else if (!isValidChildren(requestBody.children)) {
+    console.log('children property is not valid'); return false;
+  } else { console.log('valid request!'); return true;}
+}
+
+/*
+// TODO: enable after refactor
 function isValidUpdateRequest(requestBody) {
   if (!isValidM_nr(requestBody.m_nr)) {
     console.log('m_nr not valid'); return false;}
@@ -208,7 +229,7 @@ function isValidUpdateRequest(requestBody) {
     console.log('is_alternative not valid'); return false;}
   else { console.log('valid request!'); return true;}
 }
-
+*/
 
 function isValidM_nr(m_nr) {
   try {
@@ -273,7 +294,7 @@ function isValidKey(key) {
   }
 }
 
-
+// TODO can be removed after refactor
 function isValidIs_Alternative(is_alternative) {
     try {
       if (typeof(is_alternative) === 'string') {
